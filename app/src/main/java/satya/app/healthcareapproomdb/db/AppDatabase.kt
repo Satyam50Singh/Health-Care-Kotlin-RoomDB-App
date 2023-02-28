@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import satya.app.healthcareapproomdb.db.dao.AmbulanceBookingDao
 import satya.app.healthcareapproomdb.db.dao.DoctorAppointmentDao
+import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 
-@Database(entities = [BookAnAppointmentEntity::class], version = 1)
+@Database(entities = [BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun doctorAppointmentDao(): DoctorAppointmentDao
+    abstract fun ambulanceBookingDao(): AmbulanceBookingDao
 
     companion object {
 
@@ -28,7 +31,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "health_care_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 return instance

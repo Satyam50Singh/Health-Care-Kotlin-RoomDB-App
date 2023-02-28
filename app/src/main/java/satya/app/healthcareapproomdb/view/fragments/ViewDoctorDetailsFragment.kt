@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -72,6 +73,7 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
         appDatabase = AppDatabase.getDatabase(requireContext())
     }
 
+    @DelicateCoroutinesApi
     @SuppressLint("SimpleDateFormat")
     private fun showBookAppointmentDialog() {
         dialogBinding = DialogBookAnAppointmentBinding.inflate(layoutInflater)

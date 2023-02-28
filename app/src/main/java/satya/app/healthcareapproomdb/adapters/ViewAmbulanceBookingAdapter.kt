@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.databinding.ItemViewAmbulanceBookingBinding
+import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookAnAmbulanceModel
 
 
 class ViewAmbulanceBookingAdapter(
-    private var records: ArrayList<BookAnAmbulanceModel>,
-    val commonItemListClickListener: CommonItemListClickListener<BookAnAmbulanceModel>
+    private var records: List<BookAnAmbulanceEntity>,
+    private val commonItemListClickListener: CommonItemListClickListener<BookAnAmbulanceEntity>
 ) : RecyclerView.Adapter<ViewAmbulanceBookingAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewAmbulanceBookingBinding: ItemViewAmbulanceBookingBinding) :

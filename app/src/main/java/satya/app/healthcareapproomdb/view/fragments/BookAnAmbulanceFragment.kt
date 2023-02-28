@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.FragmentBookAmbulanceBinding
-import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.models.AmbulanceModel
-import satya.app.healthcareapproomdb.models.BookAnAmbulanceModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
@@ -26,6 +29,7 @@ class BookAnAmbulanceFragment : Fragment() {
     private lateinit var binding: FragmentBookAmbulanceBinding
     private lateinit var ambulanceDetails: AmbulanceModel
     private val args by navArgs<BookAnAmbulanceFragmentArgs>()
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,6 +43,8 @@ class BookAnAmbulanceFragment : Fragment() {
 
     private fun initUI() {
         ambulanceDetails = args.selectedAmbulance
+
+        appDatabase = AppDatabase.getDatabase(requireContext())
 
         with(binding) {
             with(ambulanceDetails) {
@@ -100,16 +106,14 @@ class BookAnAmbulanceFragment : Fragment() {
                         ).show()
                     } else {
                         Utils.toastMessage(
-                            requireContext(),
-                            getString(R.string.please_select_pick_up_date)
+                            requireContext(), getString(R.string.please_select_pick_up_date)
                         )
                     }
                 }
 
                 btnBookAnAmbulance.setOnClickListener {
                     if (isValidate()) {
-                        val db = Database(requireContext(), Constants.DB_NAME, null, 1)
-                        val bookAnAmbulanceModel = BookAnAmbulanceModel(
+                        val bookAnAmbulanceEntity = BookAnAmbulanceEntity(
                             -1,
                             PreferenceManager.getSharedPreferencesIntValues(
                                 requireContext(), Constants.PREF_USER_ID
@@ -127,20 +131,17 @@ class BookAnAmbulanceFragment : Fragment() {
                             etDropLocation.text.toString(),
                             etPhone.text.toString()
                         )
-                        val result = db.bookAnAmbulance(bookAnAmbulanceModel)
-                        if (result) {
-                            clearControls()
-                            Snackbar.make(
-                                it,
-                                getString(R.string.ambulance_booked_successfully),
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                            findNavController().navigateUp()
-                        } else {
-                            Utils.toastMessage(
-                                requireContext(), getString(R.string.something_wrong_happened)
-                            )
+
+                        GlobalScope.launch(Dispatchers.IO) {
+                            appDatabase.ambulanceBookingDao().bookAmbulance(bookAnAmbulanceEntity)
                         }
+                        clearControls()
+                        Snackbar.make(
+                            it,
+                            getString(R.string.ambulance_booked_successfully),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        findNavController().navigateUp()
                     }
                 }
             }

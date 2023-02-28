@@ -6,16 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import satya.app.healthcareapproomdb.adapters.ViewAmbulanceBookingAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentViewAmbulanceBookingBinding
-import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookAnAmbulanceModel
 
-class ViewAmbulanceBookingFragment : Fragment(), CommonItemListClickListener<BookAnAmbulanceModel> {
+class ViewAmbulanceBookingFragment : Fragment(), CommonItemListClickListener<BookAnAmbulanceEntity> {
 
     private lateinit var binding: FragmentViewAmbulanceBookingBinding
     private lateinit var adapter: ViewAmbulanceBookingAdapter
+    private lateinit var appDatabase: AppDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,22 +34,27 @@ class ViewAmbulanceBookingFragment : Fragment(), CommonItemListClickListener<Boo
     }
 
     private fun initUI() {
-        val db = Database(requireContext(), "healthcare", null, 1)
-        val bookedAmbulanceList = db.getBookedAmbulanceList()
-        Log.e("TAG", "initUI::bookedAmbulanceList : ${bookedAmbulanceList.size}")
+        appDatabase = AppDatabase.getDatabase(requireContext())
 
-        if (bookedAmbulanceList.size > 0) {
-            adapter = ViewAmbulanceBookingAdapter(bookedAmbulanceList, this)
-            binding.rcvViewAmbulanceBooking.adapter = adapter
-            binding.tvNoAmbulanceBooked.visibility = View.GONE
-            binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
-        } else {
-            binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
-            binding.rcvViewAmbulanceBooking.visibility = View.GONE
+        GlobalScope.launch {
+            val bookedAmbulanceList =  appDatabase.ambulanceBookingDao().getAllAmbulanceBookingRecord()
+            withContext(Dispatchers.Main) {
+                Log.e("TAG", "initUI::bookedAmbulanceList : ${bookedAmbulanceList.size}")
+
+                if (bookedAmbulanceList.isNotEmpty()) {
+                    adapter = ViewAmbulanceBookingAdapter(bookedAmbulanceList, this@ViewAmbulanceBookingFragment)
+                    binding.rcvViewAmbulanceBooking.adapter = adapter
+                    binding.tvNoAmbulanceBooked.visibility = View.GONE
+                    binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
+                } else {
+                    binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
+                    binding.rcvViewAmbulanceBooking.visibility = View.GONE
+                }
+            }
         }
     }
 
-    override fun onItemClick(item: BookAnAmbulanceModel) {
+    override fun onItemClick(item: BookAnAmbulanceEntity) {
         Log.e("TAG", "onItemClick : item.ambulanceId : ${item.ambulanceId}")
     }
 }
