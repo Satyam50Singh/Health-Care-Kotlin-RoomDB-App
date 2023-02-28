@@ -1,17 +1,15 @@
 package satya.app.healthcareapproomdb.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.databinding.ItemViewDoctorAppointmentBinding
+import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookAnAppointmentModel
 
 class ViewDoctorAppointmentsAdapter(
-    context: Context,
-    private var records: ArrayList<BookAnAppointmentModel>,
-    val commonItemListClickListener: CommonItemListClickListener<BookAnAppointmentModel>
+    private var records: List<BookAnAppointmentEntity>,
+    private val commonItemListClickListener: CommonItemListClickListener<BookAnAppointmentEntity>
 ) : RecyclerView.Adapter<ViewDoctorAppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewDoctorAppointmentsBinding: ItemViewDoctorAppointmentBinding) :

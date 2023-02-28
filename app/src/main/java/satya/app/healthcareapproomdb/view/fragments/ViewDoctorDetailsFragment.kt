@@ -10,13 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.DatesDayAdapter
 import satya.app.healthcareapproomdb.databinding.DialogBookAnAppointmentBinding
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorDetailsBinding
-import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 import satya.app.healthcareapproomdb.listeners.CommonClickListener
-import satya.app.healthcareapproomdb.models.BookAnAppointmentModel
 import satya.app.healthcareapproomdb.models.DoctorListModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.DateTimeUtils
@@ -37,6 +40,7 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
     private var selectedTimeSlot: String = ""
     private lateinit var doctor: DoctorListModel
     private val args by navArgs<ViewDoctorDetailsFragmentArgs>()
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,8 +58,8 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
         binding.tvDoctorName.text = doctor.name
         binding.tvDoctorType.text = doctor.category
         binding.tvDoctorAbout.text = doctor.doctorHistory
-        if (doctor.name.lowercase().contains("archana") ||
-            doctor.name.lowercase().contains("shivani")
+        if (doctor.name.lowercase().contains("archana") || doctor.name.lowercase()
+                .contains("shivani")
         ) {
             binding.ivDoctorImage.setImageDrawable(resources.getDrawable(R.drawable.female_doctor))
         } else {
@@ -64,6 +68,8 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
         binding.btnBookAnAppointment.setOnClickListener {
             showBookAppointmentDialog()
         }
+
+        appDatabase = AppDatabase.getDatabase(requireContext())
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -109,35 +115,33 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
             } else if (selectedTimeSlot.isEmpty()) {
                 Utils.toastMessage(requireContext(), getString(R.string.please_select_time_slot))
             } else {
-                val db = Database(requireContext(), "healthcare", null, 1)
-                val bookAnAppointment = db.bookAnAppointment(
-                    BookAnAppointmentModel(
-                        -1,
-                        PreferenceManager.getSharedPreferencesIntValues(
-                            requireContext(), Constants.PREF_USER_ID
-                        ),
-                        PreferenceManager.getSharedPreferences(
-                            requireContext(), Constants.PREF_USERNAME
-                        ),
-                        selectedDate,
-                        selectedDay,
-                        selectedTimeSlot,
-                        doctor.doctorId,
-                        doctor.name,
-                        doctor.category
-                    )
+                // Room database Implementation
+                val bookAnAppointmentEntity = BookAnAppointmentEntity(
+                    null,
+                    PreferenceManager.getSharedPreferencesIntValues(
+                        requireContext(), Constants.PREF_USER_ID
+                    ),
+                    PreferenceManager.getSharedPreferences(
+                        requireContext(), Constants.PREF_USERNAME
+                    ),
+                    selectedDate,
+                    selectedDay,
+                    selectedTimeSlot,
+                    doctor.doctorId,
+                    doctor.name,
+                    doctor.category
                 )
-                if (bookAnAppointment) {
-                    Utils.toastMessage(
-                        requireContext(), getString(R.string.appointment_booked_successfully)
-                    )
-                    dialog.dismiss()
-                    findNavController().navigateUp()
-                } else {
-                    Utils.toastMessage(
-                        requireContext(), getString(R.string.something_wrong_happened)
-                    )
+
+                GlobalScope.launch(Dispatchers.IO) {
+                    appDatabase.doctorAppointmentDao().bookAppointment(bookAnAppointmentEntity)
                 }
+
+                Utils.toastMessage(
+                    requireContext(),
+                    getString(R.string.appointment_booked_successfully)
+                )
+                dialog.dismiss()
+                findNavController().navigateUp()
             }
         }
 

@@ -6,7 +6,10 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import satya.app.healthcareapproomdb.models.*
+import satya.app.healthcareapproomdb.models.BookAnAmbulanceModel
+import satya.app.healthcareapproomdb.models.BookLabTestModel
+import satya.app.healthcareapproomdb.models.HealthArticleModel
+import satya.app.healthcareapproomdb.models.OrderMedicineModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 
@@ -21,8 +24,6 @@ class Database(
 
     private val createUserTableQuery =
         "create table users(userId INTEGER PRIMARY KEY, username text, email text, password text)"
-    private val createAppointmentTableQuery =
-        "create table appointments(appointmentId INTEGER PRIMARY KEY, authUserId INTEGER, patientName text, date text, day text, timeSlot text, doctorId INTEGER, doctorName text, doctorCategory text)"
     private val createAmbulanceTableQuery =
         "create table ambulance_booking(bookingId INTEGER PRIMARY KEY, authUserId INTEGER, bookedBy text, ambulanceId INTEGER, ambulanceName text, ambulanceType text,  ambulanceAddress text, pickUpLocation text, pickUpDate text, pickUpTime text, dropLocation text, phone text)"
     private val createBookLabTableQuery =
@@ -36,7 +37,6 @@ class Database(
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createUserTableQuery)
-        db?.execSQL(createAppointmentTableQuery)
         db?.execSQL(createAmbulanceTableQuery)
         db?.execSQL(createBookLabTableQuery)
         db?.execSQL(createArticleTableQuery)
@@ -45,7 +45,6 @@ class Database(
 
     override fun onUpgrade(sqLiteDatabase: SQLiteDatabase?, p1: Int, p2: Int) {
         sqLiteDatabase?.execSQL("$dropQueryPrefix users")
-        sqLiteDatabase?.execSQL("$dropQueryPrefix appointments")
         sqLiteDatabase?.execSQL("$dropQueryPrefix ambulance_booking")
         sqLiteDatabase?.execSQL("$dropQueryPrefix lab_booking")
         sqLiteDatabase?.execSQL("$dropQueryPrefix health_article")
@@ -108,25 +107,6 @@ class Database(
         }
 
         return 0
-    }
-
-    // method to book an doctor appointment
-    fun bookAnAppointment(bookAnAppointmentModel: BookAnAppointmentModel): Boolean {
-        val cv = ContentValues()
-        cv.put("authUserId", bookAnAppointmentModel.authUserId)
-        cv.put("patientName", bookAnAppointmentModel.patientName)
-        cv.put("date", bookAnAppointmentModel.date)
-        cv.put("day", bookAnAppointmentModel.day)
-        cv.put("timeSlot", bookAnAppointmentModel.timeSlot)
-        cv.put("doctorId", bookAnAppointmentModel.doctorId)
-        cv.put("doctorName", bookAnAppointmentModel.doctorName)
-        cv.put("doctorCategory", bookAnAppointmentModel.doctorCategory)
-
-        val db: SQLiteDatabase = writableDatabase
-        val result = db.insert("appointments", null, cv)
-        Log.e(TAG, "bookAnAppointment: $result")
-        db.close()
-        return result >= 1L
     }
 
     // method to book an ambulance
@@ -218,38 +198,6 @@ class Database(
         return null
     }
 
-    // method to get the list of doctor appointment
-    fun getDoctorsAppointmentList(): ArrayList<BookAnAppointmentModel> {
-        val records = ArrayList<BookAnAppointmentModel>()
-        try {
-            val userId =
-                PreferenceManager.getSharedPreferencesIntValues(context!!, Constants.PREF_USER_ID)
-                    .toString()
-            val db = readableDatabase
-            val cursor = db.rawQuery(
-                "SELECT * FROM appointments WHERE authUserId=?", arrayOf(userId)
-            )
-
-            while (cursor?.moveToNext() == true) {
-                val bookAnAppointmentModel = BookAnAppointmentModel(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6),
-                    cursor.getString(7),
-                    cursor.getString(8),
-                )
-                records.add(bookAnAppointmentModel)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return records
-    }
-
     // method to get the list of ambulance booking
     fun getBookedAmbulanceList(): ArrayList<BookAnAmbulanceModel> {
         val records = ArrayList<BookAnAmbulanceModel>()
@@ -294,7 +242,8 @@ class Database(
                 PreferenceManager.getSharedPreferencesIntValues(context!!, Constants.PREF_USER_ID)
                     .toString()
             val db = readableDatabase
-            val cursor = db.rawQuery("SELECT * FROM lab_booking WHERE authUserId=?", arrayOf(userId))
+            val cursor =
+                db.rawQuery("SELECT * FROM lab_booking WHERE authUserId=?", arrayOf(userId))
 
             while (cursor?.moveToNext() == true) {
                 val bookLabTestModel = BookLabTestModel(

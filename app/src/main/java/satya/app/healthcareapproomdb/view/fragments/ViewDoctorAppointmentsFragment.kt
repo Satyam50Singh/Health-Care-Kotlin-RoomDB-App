@@ -7,24 +7,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.ViewDoctorAppointmentsAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorAppointmentsBinding
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorDetailsBinding
-import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookAnAppointmentModel
 import satya.app.healthcareapproomdb.models.DoctorListModel
 import satya.app.healthcareapproomdb.utils.Utils
 
 class ViewDoctorAppointmentsFragment : Fragment(),
-    CommonItemListClickListener<BookAnAppointmentModel> {
+    CommonItemListClickListener<BookAnAppointmentEntity> {
 
     private lateinit var binding: FragmentViewDoctorAppointmentsBinding
     private lateinit var adapter: ViewDoctorAppointmentsAdapter
-    private lateinit var db: Database
-    private lateinit var doctorsAppointmentList: ArrayList<BookAnAppointmentModel>
+    private lateinit var doctorsAppointmentList: List<BookAnAppointmentEntity>
     private lateinit var dialogBinding: FragmentViewDoctorDetailsBinding
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,24 +42,35 @@ class ViewDoctorAppointmentsFragment : Fragment(),
     }
 
     private fun initUI() {
-        db = Database(requireContext(), "healthcare", null, 1)
-        doctorsAppointmentList = db.getDoctorsAppointmentList()
-        Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
+        appDatabase = AppDatabase.getDatabase(requireContext())
 
-        // adapter binding
-        if(doctorsAppointmentList.size > 0) {
-            adapter =
-                ViewDoctorAppointmentsAdapter(requireContext(), doctorsAppointmentList, this)
-            binding.rcvViewDoctorsAppointments.adapter = adapter
-            binding.rcvViewDoctorsAppointments.visibility = View.VISIBLE
-            binding.tvNoAppointmentBooked.visibility = View.GONE
-        }else {
-            binding.rcvViewDoctorsAppointments.visibility = View.GONE
-            binding.tvNoAppointmentBooked.visibility = View.VISIBLE
+        GlobalScope.launch {
+            doctorsAppointmentList = appDatabase.doctorAppointmentDao().getAllAppointmentsRecord()
+            Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
+            setRecords(doctorsAppointmentList)
         }
     }
 
-    override fun onItemClick(item: BookAnAppointmentModel) {
+    private suspend fun setRecords(doctorsAppointmentList: List<BookAnAppointmentEntity>) {
+        // adapter binding
+        withContext(Dispatchers.Main) {
+            if (doctorsAppointmentList.isNotEmpty()) {
+                adapter =
+                    ViewDoctorAppointmentsAdapter(
+                        doctorsAppointmentList,
+                        this@ViewDoctorAppointmentsFragment
+                    )
+                binding.rcvViewDoctorsAppointments.adapter = adapter
+                binding.rcvViewDoctorsAppointments.visibility = View.VISIBLE
+                binding.tvNoAppointmentBooked.visibility = View.GONE
+            } else {
+                binding.rcvViewDoctorsAppointments.visibility = View.GONE
+                binding.tvNoAppointmentBooked.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun onItemClick(item: BookAnAppointmentEntity) {
         val doctorsList =
             if (item.doctorCategory == "Physicians") Utils.getPhysiciansList() else Utils.getDoctorsList()
         val doctor: DoctorListModel = doctorsList.single {

@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -68,4 +69,11 @@ dependencies {
 
     // image-slider - https://github.com/denzcoskun/ImageSlideshow
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    // room database
+    implementation "androidx.room:room-ktx:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 }
