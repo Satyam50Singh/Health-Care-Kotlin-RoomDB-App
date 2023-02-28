@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import satya.app.healthcareapproomdb.models.BookLabTestModel
 import satya.app.healthcareapproomdb.models.HealthArticleModel
 import satya.app.healthcareapproomdb.models.OrderMedicineModel
 import satya.app.healthcareapproomdb.utils.Constants
@@ -23,8 +22,6 @@ class Database(
 
     private val createUserTableQuery =
         "create table users(userId INTEGER PRIMARY KEY, username text, email text, password text)"
-    private val createBookLabTableQuery =
-        "create table lab_booking(bookingId INTEGER PRIMARY KEY, authUserId INTEGER, testTitle text, bookedBy text, phone text, labTitle text, labAddress text, price INTEGER, visitType text, homeAddress text)"
     private val createArticleTableQuery =
         "create table health_article(uploadedBy text, uploadedOn text, articleHeading text, article text)"
     private val createOrderTableQuery =
@@ -34,15 +31,14 @@ class Database(
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createUserTableQuery)
-        db?.execSQL(createBookLabTableQuery)
         db?.execSQL(createArticleTableQuery)
         db?.execSQL(createOrderTableQuery)
     }
 
     override fun onUpgrade(sqLiteDatabase: SQLiteDatabase?, p1: Int, p2: Int) {
         sqLiteDatabase?.execSQL("$dropQueryPrefix users")
-        sqLiteDatabase?.execSQL("$dropQueryPrefix lab_booking")
         sqLiteDatabase?.execSQL("$dropQueryPrefix health_article")
+        sqLiteDatabase?.execSQL("$dropQueryPrefix medicine_orders")
         Log.e(TAG, "onUpgrade")
 
         // Create tables again
@@ -104,26 +100,6 @@ class Database(
         return 0
     }
 
-    // method to book an lab test
-    fun bookLabTest(bookLabTestModel: BookLabTestModel): Boolean {
-        val cv = ContentValues()
-        cv.put("authUserId", bookLabTestModel.authUserId)
-        cv.put("testTitle", bookLabTestModel.testTitle)
-        cv.put("bookedBy", bookLabTestModel.bookedBy)
-        cv.put("phone", bookLabTestModel.phone)
-        cv.put("labTitle", bookLabTestModel.labTitle)
-        cv.put("labAddress", bookLabTestModel.labAddress)
-        cv.put("price", bookLabTestModel.price)
-        cv.put("visitType", bookLabTestModel.visitType)
-        cv.put("homeAddress", bookLabTestModel.homeAddress)
-        val db: SQLiteDatabase = writableDatabase
-        val result = db.insert("lab_booking", null, cv)
-        Log.e(TAG, "bookLabTest: $result")
-        db.close()
-        return result >= 1L
-    }
-
-
     // method to order medicine from cart
     fun orderMedicine(orderMedicineModel: OrderMedicineModel): Boolean {
         val cv = ContentValues()
@@ -169,39 +145,6 @@ class Database(
             e.printStackTrace()
         }
         return null
-    }
-
-    // method to get the list of labs test booking
-    fun getBookedLabTestList(): ArrayList<BookLabTestModel> {
-        val records = ArrayList<BookLabTestModel>()
-
-        try {
-            val userId =
-                PreferenceManager.getSharedPreferencesIntValues(context!!, Constants.PREF_USER_ID)
-                    .toString()
-            val db = readableDatabase
-            val cursor =
-                db.rawQuery("SELECT * FROM lab_booking WHERE authUserId=?", arrayOf(userId))
-
-            while (cursor?.moveToNext() == true) {
-                val bookLabTestModel = BookLabTestModel(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getString(6),
-                    cursor.getInt(7),
-                    cursor.getString(8),
-                    cursor.getString(9),
-                )
-                records.add(bookLabTestModel)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return records
     }
 
     // method to get the list of medicine orders

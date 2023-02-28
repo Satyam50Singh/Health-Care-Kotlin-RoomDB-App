@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "doctor_appointment")
 data class BookAnAppointmentEntity(
     @PrimaryKey(autoGenerate = true) val appointmentId: Int?, // primary key
-    @ColumnInfo(name = "user_id") val authUserId: Int,
+    @ColumnInfo(name = "user_id") val authUserId: Int?,
     @ColumnInfo(name = "patient_name") val patientName: String?,
     @ColumnInfo(name = "appointment_date") val date: String,
     @ColumnInfo(name = "appointment_day") val day: String,

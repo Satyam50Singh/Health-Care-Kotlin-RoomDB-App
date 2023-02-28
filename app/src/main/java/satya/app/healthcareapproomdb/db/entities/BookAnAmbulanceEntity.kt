@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "ambulance_booking")
 data class BookAnAmbulanceEntity(
-    @PrimaryKey(autoGenerate = true) val bookingId: Int,
+    @PrimaryKey(autoGenerate = true) val bookingId: Int?,
     @ColumnInfo(name = "user_id") val authUserId: Int,
     @ColumnInfo(name = "booked_by") val bookedBy: String,
     @ColumnInfo(name = "ambulance_id") val ambulanceId: Int,

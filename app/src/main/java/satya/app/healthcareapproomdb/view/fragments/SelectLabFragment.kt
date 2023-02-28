@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.LabsListAdapter
 import satya.app.healthcareapproomdb.databinding.DialogBookLabTestBinding
 import satya.app.healthcareapproomdb.databinding.FragmentSelectLabBinding
-import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.BookLabTestEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookLabTestModel
 import satya.app.healthcareapproomdb.models.LabListModel
 import satya.app.healthcareapproomdb.models.LabTestModel
 import satya.app.healthcareapproomdb.utils.Constants
@@ -31,6 +34,7 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
 
     private lateinit var adapter: LabsListAdapter
     private val args by navArgs<SelectLabFragmentArgs>()
+    private lateinit var appDatabase: AppDatabase
 
 
     override fun onCreateView(
@@ -47,6 +51,8 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
     }
 
     private fun initUi() {
+        appDatabase = AppDatabase.getDatabase(requireContext())
+
         binding.svSearchLabs.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
@@ -109,35 +115,33 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
 
         dialogBinding.btnBookLabTest.setOnClickListener {
             if (validateControls()) {
-                val db = Database(requireContext(), "healthcare", null, 1)
-                val result = db.bookLabTest(
-                    BookLabTestModel(
-                        -1,
-                        PreferenceManager.getSharedPreferencesIntValues(requireContext(), Constants.PREF_USER_ID),
-                        selectedTest.testTitle,
-                        PreferenceManager.getSharedPreferences(
-                            requireContext(), Constants.PREF_USERNAME
-                        ).toString(),
-                        dialogBinding.etPhone.text.toString(),
-                        item.labTitle,
-                        item.address,
-                        if (dialogBinding.switchLabVisit.isChecked) (item.price + item.homeVisitCharges) else item.price,
-                        if (dialogBinding.switchLabVisit.isChecked) "Home" else "Lab",
-                        dialogBinding.etAddress.text.toString() + ", " + dialogBinding.etCity.text.toString() + ", " + dialogBinding.etPincode.text.toString()
-                    )
+                val bookLabTestEntity = BookLabTestEntity(
+                    null,
+                    PreferenceManager.getSharedPreferencesIntValues(
+                        requireContext(),
+                        Constants.PREF_USER_ID
+                    ),
+                    selectedTest.testTitle,
+                    PreferenceManager.getSharedPreferences(
+                        requireContext(), Constants.PREF_USERNAME
+                    ).toString(),
+                    dialogBinding.etPhone.text.toString(),
+                    item.labTitle,
+                    item.address,
+                    if (dialogBinding.switchLabVisit.isChecked) (item.price + item.homeVisitCharges) else item.price,
+                    if (dialogBinding.switchLabVisit.isChecked) "Home" else "Lab",
+                    dialogBinding.etAddress.text.toString() + ", " + dialogBinding.etCity.text.toString() + ", " + dialogBinding.etPincode.text.toString()
                 )
 
-                if (result) {
-                    Utils.toastMessage(
-                        requireContext(),
-                        getString(R.string.lab_booked_successfully)
-                    )
-                    dialog.dismiss()
-                } else {
-                    Utils.toastMessage(
-                        requireContext(), getString(R.string.something_wrong_happened)
-                    )
+                GlobalScope.launch(Dispatchers.IO) {
+                    appDatabase.labBookingDao().bookLabTest(bookLabTestEntity)
                 }
+
+                Utils.toastMessage(
+                    requireContext(),
+                    getString(R.string.lab_booked_successfully)
+                )
+                dialog.dismiss()
             }
         }
 

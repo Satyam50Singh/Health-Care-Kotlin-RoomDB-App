@@ -114,7 +114,7 @@ class BookAnAmbulanceFragment : Fragment() {
                 btnBookAnAmbulance.setOnClickListener {
                     if (isValidate()) {
                         val bookAnAmbulanceEntity = BookAnAmbulanceEntity(
-                            -1,
+                            null,
                             PreferenceManager.getSharedPreferencesIntValues(
                                 requireContext(), Constants.PREF_USER_ID
                             ),

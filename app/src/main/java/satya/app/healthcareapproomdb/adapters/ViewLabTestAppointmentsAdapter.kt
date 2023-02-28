@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.databinding.ItemViewLabTestBookingBinding
+import satya.app.healthcareapproomdb.db.entities.BookLabTestEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.BookLabTestModel
 import satya.app.healthcareapproomdb.utils.Constants.Companion.rupeeSymbol
 
 class ViewLabTestAppointmentsAdapter(
-    private var records: ArrayList<BookLabTestModel>,
-    private val commonItemListClickListener: CommonItemListClickListener<BookLabTestModel>
+    private var records: List<BookLabTestEntity>,
+    private val commonItemListClickListener: CommonItemListClickListener<BookLabTestEntity>
 ) : RecyclerView.Adapter<ViewLabTestAppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewLabTestAppointmentsBinding: ItemViewLabTestBookingBinding) :
