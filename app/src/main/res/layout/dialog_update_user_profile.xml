@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity=""
+        android:layout_marginBottom="16dp"
+        android:text="@string/update"
+        android:textColor="@color/blue_500"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:text="@string/personal_contact"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_personal_contact"
+        style="@style/Theme.HealthCareApp.EditText"
+        android:layout_marginBottom="6dp"
+        android:drawableEnd="@drawable/baseline_call"
+        android:hint="@string/hint_contact"
+        android:inputType="number"
+        android:maxLength="10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:text="@string/location_address"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_address"
+        style="@style/Theme.HealthCareApp.EditText"
+        android:layout_marginBottom="6dp"
+        android:drawableEnd="@drawable/baseline_location"
+        android:hint="@string/hint_address"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:text="@string/emergency_contact"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_emergency_contact"
+        style="@style/Theme.HealthCareApp.EditText"
+        android:layout_marginBottom="6dp"
+        android:drawableEnd="@drawable/baseline_call"
+        android:hint="@string/hint_contact"
+        android:inputType="number"
+        android:maxLength="10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:text="@string/aadhaar_number"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_aadhaar_number"
+        style="@style/Theme.HealthCareApp.EditText"
+        android:layout_marginBottom="6dp"
+        android:drawableEnd="@drawable/baseline_aadhaar"
+        android:hint="@string/sample_aadhar"
+        android:inputType="number"
+        android:maxLength="12" />
+
+    <Button
+        android:id="@+id/btn_update_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_btn_bg"
+        android:paddingHorizontal="40dp"
+        android:text="@string/update_profile"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.fragments.AddHealthArticleFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/label_enter_article_heading"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_article_heading"
+                style="@style/Theme.HealthCareApp.EditText"
+                android:layout_marginBottom="6dp"
+                android:hint="Reduce Intake of harmful fats ...."
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@id/et_article" />
+
+            <TextView
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:text="@string/label_enter_article"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_article"
+                style="@style/Theme.HealthCareApp.EditText"
+                android:layout_marginBottom="6dp"
+                android:gravity="start|top"
+                android:hint="Sample Article Notes ...Sample Article Notes ...Sample Article Notes ...Sample Article Notes ..."
+                android:inputType="textMultiLine"
+                android:lines="15"
+                android:maxLines="16"
+                android:minLines="12"
+                android:nextFocusDown="@id/btn_add_article" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_add_article"
+                style="@style/Theme.HealthCareApp.RoundedButton"
+                android:layout_gravity="center"
+                android:text="@string/add_article" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

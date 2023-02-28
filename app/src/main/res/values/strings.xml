@@ -1,0 +1,203 @@
+<resources>
+    <string name="app_name">Health Care</string>
+    <string name="GOOGLE_API_KEY">AIzaSyA0_V6KVM9EoaZl59DjqobSSPEln_DA4FI</string>
+    <string name="user_login">User Login</string>
+    <string name="label_enter_username">Enter Username<font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_enter_email">Enter Email<font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_enter_password">Enter Password<font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_drop_location">Drop Location <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_pick_up_time">Pick Up time <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_pick_up_date">Pick Up Date <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_pick_up_location">Pick Up Location <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_address_street_near_by">Address/Street/Near by <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_pincode">Pin Code <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_city">City <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_enter_article_heading">Enter Article Heading <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_enter_article">Enter Article  <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_old_password">Old Password <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_new_password">New Password <font color="#FA1605"> <b>*</b></font></string>
+    <string name="label_confirm_new_password">Confirm New Password <font color="#FA1605"> <b>*</b></font></string>
+    <string name="do_not_have_a_account">Don\'t have a account ? <font color="#0A4575">REGISTER HERE</font></string>
+    <string name="already_have_a_account">Already have a account ? <font color="#0A4575">LOGIN HERE</font></string>
+    <string name="password_sample_string">********</string>
+    <string name="sample_gmail_com">Sample@gmail.com</string>
+    <string name="login">Login</string>
+    <string name="forgot_your_password">Forgot your password ?</string>
+    <string name="user_register">User Register</string>
+    <string name="user_registration">User Registration</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="user_registered_successfully">User Registered Successfully!</string>
+    <string name="user_registered_successfully_notification">User Registered Successfully! Click to Login</string>
+    <string name="appointment_booked_successfully">Appointment Booked Successfully!</string>
+    <string name="please_enter_username">Please Enter Username</string>
+    <string name="please_enter_password">Please Enter Password</string>
+    <string name="validate_password_length">Password length must be 8.</string>
+    <string name="please_enter_email">Please Enter Email</string>
+    <string name="please_enter_valid_email">Please Enter Valid Email</string>
+    <string name="invalid_credentials">Invalid Credentials</string>
+    <string name="logged_in_successfully">LoggedIn Successfully!</string>
+    <string name="something_wrong_happened">Something Wrong Happened!</string>
+    <string name="action_orders">Orders</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_find_doctors">Find Doctors</string>
+    <string name="action_find_ambulance">Find Ambulance</string>
+    <string name="action_book_an_appointment">Book an appointment</string>
+    <string name="action_check_your_appointments">Booking/Appointments Details</string>
+    <string name="action_book_lab_test">Book Lab Test</string>
+    <string name="action_order_medicine">Order Medicine</string>
+    <string name="action_health_articles">Health Articles</string>
+    <string name="logout">Logout</string>
+    <string name="exit">Exit</string>
+    <string name="do_you_want_to_do_logout">Do you want to do logout ?</string>
+    <string name="do_you_want_to_do_exit">Do you really want to do exit ?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">OK</string>
+    <string name="module_1">Module 1</string>
+    <string name="find_doctors">Find Doctors</string>
+    <string name="find_ambulance">Find Ambulance</string>
+    <string name="book_an_appointment">Book an Appointment</string>
+    <string name="book_lab_test">Book Lab Test</string>
+    <string name="order_medicine">Order Medicine</string>
+    <string name="health_articles">Health Articles</string>
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+    <string name="all_rights_reserved_copyright_u00a9_satyam_singh">Copyright © Satyam Singh - All rights reserved</string>
+    <string name="all_rights_reserved">Copyright © 2023 - All rights reserved</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_dashboard">Dashboard</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="services">Services</string>
+    <string name="more_options">More Options</string>
+    <string name="categories">Categories</string>
+    <string name="please_allow_permission">This app needs you to allow this permission in order to function. Will you allow it</string>
+    <string name="thank_you_for_allowing">Thank you for allowing.</string>
+    <string name="call_permission_is_required_to_make_a_call">Call permission is required to make a call.</string>
+    <string name="location_permission_is_required_to_open_map">Location permission is required to open map.</string>
+    <string name="top_doctors">Top Doctors</string>
+    <string name="time_label_09_00_am">09:00 AM</string>
+    <string name="time_label_11_00_am">11:00 AM</string>
+    <string name="time_label_2_00_pm">02:00 PM</string>
+    <string name="time_label_5_00_pm">05:00 PM</string>
+    <string name="dr_name">Dr. Name</string>
+    <string name="doctor_category">Doctor Category</string>
+    <string name="mon_year">Mon Year</string>
+    <string name="please_select_time_slot">Please Select Time Slot</string>
+    <string name="please_select_date">Please select Date</string>
+    <string name="available_ambulance">Available Ambulance</string>
+    <string name="book_an_ambulance">Book an Ambulance</string>
+    <string name="please_call_an_ambulance_at_least_two_hours_in_advance">Please call an ambulance at least two hours in advance.</string>
+    <string name="mobile_number">Mobile Number <font color="#FA1605"> <b>*</b></font></string>
+    <string name="time_00_00">00:00</string>
+    <string name="date_hint_01_01_2023">01–01–2023</string>
+    <string name="book_now">Book Now</string>
+    <string name="location_address">Location/Address</string>
+    <string name="ambulance_category">Ambulance Category</string>
+    <string name="please_enter_pick_up_location">Please Enter Pick Up Location</string>
+    <string name="please_select_pick_up_date">Please Select Pick Date</string>
+    <string name="please_enter_pick_up_time">Please Enter Pick Up Time</string>
+    <string name="please_enter_drop_location">Please Enter Drop Location</string>
+    <string name="please_enter_address">Please Enter Address</string>
+    <string name="please_enter_city">Please Enter City</string>
+    <string name="please_enter_pin_code">Please Enter Pin Code</string>
+    <string name="please_enter_mobile_number">Please Enter Mobile Number</string>
+    <string name="ambulance_booked_successfully">Ambulance Booked Successfully!</string>
+    <string name="lab_booked_successfully">Lab Booked Successfully!</string>
+    <string name="nearest_labs">Nearest Labs</string>
+    <string name="list_of_test">List Of Tests</string>
+    <string name="description">Description</string>
+    <string name="test_requirement">Test Requirement</string>
+    <string name="sample_type">Sample Type : </string>
+    <string name="fasting_required">Fasting Required : </string>
+    <string name="tube_type">Tube Type : </string>
+    <string name="required">Required</string>
+    <string name="not_required">Not Required</string>
+    <string name="select_lab">Select Lab</string>
+    <string name="lab_name">Lab Name</string>
+    <string name="lab_type">Lab Type</string>
+    <string name="lab_address">Lab Address</string>
+    <string name="home_visit">Home Visit</string>
+    <string name="search_query">Search Here .....</string>
+    <string name="add_articles">add articles</string>
+    <string name="add_article">Add Article</string>
+    <string name="article_saved_successfully">Article Saved Successfully!</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="you_cannot_add_more_than_10">You Cannot Add more than 10.</string>
+    <string name="cart">Cart</string>
+    <string name="location">location</string>
+    <string name="call">call</string>
+    <string name="please_enter_article_heading">Please Enter Article Heading</string>
+    <string name="please_enter_article">Please Enter Article</string>
+    <string name="medicine_cart">Medicine Cart</string>
+    <string name="cart_is_empty">Cart is Empty!</string>
+    <string name="personal_contact">Personal Contact</string>
+    <string name="emergency_contact">Emergency Contact</string>
+    <string name="aadhaar_number">Aadhaar Number</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="update">Update</string>
+    <string name="sample_aadhar">0000 0000 0000</string>
+    <string name="hint_contact">Contact</string>
+    <string name="hint_address">Address</string>
+    <string name="add_your_personal_contact">Add your personal contact</string>
+    <string name="add_your_location_address">Add your location/address</string>
+    <string name="add_your_emergency_contact">Add your emergency contact</string>
+    <string name="add_your_aadhaar_number">Add your aadhaar number</string>
+    <string name="payment_mode">Payment Mode : </string>
+    <string name="cash_on_delivery">Cash On Delivery*</string>
+    <string name="total_amount">Total Amount : </string>
+    <string name="medicine_count">Medicine Count : </string>
+    <string name="order_details">Order Details</string>
+    <string name="address">Address :</string>
+    <string name="email">Email :</string>
+    <string name="contact">Contact :</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="order">Order</string>
+    <string name="please_select_some_medicines">Please Select Some Medicines</string>
+    <string name="edit_personal_details">Edit Personal Details</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="regional">Regional</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="app_ver_1_0_0">App Ver 1.0.0</string>
+    <string name="username">Username</string>
+    <string name="no_appointment_booked">No Appointment Booked <font color="#FA1605"> <b>!! </b></font></string>
+    <string name="no_ambulance_booked">No Ambulance Booked <font color="#FA1605"> <b>!! </b></font></string>
+    <string name="no_test_booked">No Lab Test Booked <font color="#FA1605"> <b>!! </b></font></string>
+    <string name="no_medicine_order_booked">No Medicine Ordered <font color="#FA1605"> <b>!! </b></font></string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_find_doctors">Find Doctors</string>
+    <string name="title_find_ambulance">Find Ambulance</string>
+    <string name="title_book_lab_test">Book Lab Test</string>
+    <string name="title_health_articles">Health Articles</string>
+    <string name="title_order_medicines">Order Medicines</string>
+    <string name="title_booking_appointment_details">Booking/Appointment Details</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_view_doctor_details">View Doctor Details</string>
+    <string name="title_book_an_ambulance">Book An Ambulance</string>
+    <string name="title_medicine_cart">Medicine Cart</string>
+    <string name="title_add_health_article">Add Health Article</string>
+    <string name="title_doctors">Doctors</string>
+    <string name="title_ambulances">Ambulances</string>
+    <string name="title_lab_test">Lab Test</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="please_enter_old_password">Please enter old password</string>
+    <string name="please_enter_new_password">Please enter new password</string>
+    <string name="please_renter_your_password">Please renter your password</string>
+    <string name="password_do_not_match">Both new password do not match</string>
+    <string name="old_password_do_not_match">Old Password do not match</string>
+    <string name="password_changed_successfully">Password Changed Successfully</string>
+    <string name="order_booked_successfully">Order Booked Successfully</string>
+    <string name="please_add_both_delivery_address_contact">Please add Contact and Delivery Address Both From Profile Section</string>
+    <string name="check_ordered_medicines">Check Ordered Medicines</string>
+    <string name="user_already_exist">User Already Exists!</string>
+    <string name="user_does_not_exit">User doesn\'t exist</string>
+</resources>

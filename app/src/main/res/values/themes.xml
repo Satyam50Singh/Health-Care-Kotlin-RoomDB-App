@@ -1,0 +1,74 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HealthCareApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorPrimaryVariant">@color/blue_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.TextView">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.GrayishTextView">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.DashboardDescriptionTextView">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColorHint">@color/light_grey</item>
+        <item name="android:background">@drawable/round_et_bg</item>
+        <item name="android:drawableTint">@color/blue_500</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.RoundedCornersDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogCornerRadius">16dp</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.SearchView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="queryBackground">@color/white</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryHint">@string/search_query</item>
+    </style>
+
+    <style name="Theme.HealthCareApp.RoundedButton" parent="ThemeOverlay.Material3.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/round_btn_bg</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:paddingHorizontal">80dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppBarStyle">
+        <item name="android:background">@color/blue_500</item>
+    </style>
+
+</resources>

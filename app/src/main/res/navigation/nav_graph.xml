@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_auth.xml"
+    app:startDestination="@id/nav_dashboard">
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="satya.app.healthcareapp.view.fragments.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_findDoctorsFragment"
+            app:destination="@id/nav_find_doctors"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_findAmbulanceFragment"
+            app:destination="@id/nav_find_ambulance"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_bookLabTestFragment"
+            app:destination="@id/nav_book_lab_test"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_orderMedicineFragment"
+            app:destination="@id/nav_order_medicines"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_healthArticlesFragment"
+            app:destination="@id/nav_health_articles"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_dashboardFragment_to_bookingAppointmentDetailFragment"
+            app:destination="@id/nav_check_your_appointments"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_find_doctors"
+        android:name="satya.app.healthcareapp.view.fragments.FindDoctorsFragment"
+        android:label="@string/title_find_doctors"
+        tools:layout="@layout/fragment_find_doctors">
+        <action
+            android:id="@+id/action_nav_findDoctorsFragment_to_doctorsListFragment"
+            app:destination="@id/doctorsListFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_find_ambulance"
+        android:name="satya.app.healthcareapp.view.fragments.FindAmbulanceFragment"
+        android:label="@string/title_find_ambulance"
+        tools:layout="@layout/fragment_find_ambulance">
+        <action
+            android:id="@+id/action_nav_findAmbulanceFragment_to_bookAnAmbulanceFragment"
+            app:destination="@id/bookAnAmbulanceFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_book_lab_test"
+        android:name="satya.app.healthcareapp.view.fragments.BookLabTestFragment"
+        android:label="@string/title_book_lab_test"
+        tools:layout="@layout/fragment_book_lab_test">
+        <action
+            android:id="@+id/action_nav_bookLabTestFragment_to_selectLabFragment"
+            app:destination="@id/selectLabFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_health_articles"
+        android:name="satya.app.healthcareapp.view.fragments.HealthArticlesFragment"
+        android:label="@string/title_health_articles"
+        tools:layout="@layout/fragment_health_articles">
+        <action
+            android:id="@+id/action_nav_healthArticlesFragment_to_addHealthArticleFragment"
+            app:destination="@id/addHealthArticleFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_healthArticlesFragment_to_viewHealthArticleFragment"
+            app:destination="@id/viewHealthArticleFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_order_medicines"
+        android:name="satya.app.healthcareapp.view.fragments.OrderMedicineFragment"
+        android:label="@string/title_order_medicines"
+        tools:layout="@layout/fragment_order_medicine">
+        <action
+            android:id="@+id/action_nav_orderMedicineFragment_to_medicineCartFragment"
+            app:destination="@id/medicineCartFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_check_your_appointments"
+        android:name="satya.app.healthcareapp.view.fragments.BookingAppointmentDetailFragment"
+        android:label="@string/title_booking_appointment_details"
+        tools:layout="@layout/fragment_booking_appointment_detail">
+        <action
+            android:id="@+id/action_bookingAppointmentDetailFragment_to_viewDoctorAppointmentsFragment"
+            app:destination="@id/viewDoctorAppointmentsFragment" />
+        <action
+            android:id="@+id/action_bookingAppointmentDetailFragment_to_viewAmbulanceBookingFragment"
+            app:destination="@id/viewAmbulanceBookingFragment" />
+        <action
+            android:id="@+id/action_bookingAppointmentDetailFragment_to_viewLabTestAppointmentsFragment"
+            app:destination="@id/viewLabTestAppointmentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="satya.app.healthcareapp.view.fragments.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="satya.app.healthcareapp.view.fragments.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_nav_settings_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_orders"
+        android:name="satya.app.healthcareapp.view.fragments.ViewOrderMedicineFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_view_order_medicine" />
+    <fragment
+        android:id="@+id/doctorsListFragment"
+        android:name="satya.app.healthcareapp.view.fragments.DoctorsListFragment"
+        android:label="Top {category}"
+        tools:layout="@layout/fragment_doctors_list">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_doctorsListFragment_to_viewDoctorDetailsFragment"
+            app:destination="@id/viewDoctorDetailsFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+        <action
+            android:id="@+id/action_doctorsListFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_in_right"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewDoctorDetailsFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ViewDoctorDetailsFragment"
+        android:label="@string/title_view_doctor_details"
+        tools:layout="@layout/fragment_view_doctor_details">
+        <argument
+            android:name="selectedDoctor"
+            app:argType="satya.app.healthcareapp.models.DoctorListModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="satya.app.healthcareapp.view.fragments.MapFragment"
+        android:label="{doctorName}'s Location"
+        tools:layout="@layout/fragment_map">>
+        <argument
+            android:name="selectedDoctor"
+            app:argType="satya.app.healthcareapp.models.DoctorListModel" />
+        <argument
+            android:name="doctorName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookAnAmbulanceFragment"
+        android:name="satya.app.healthcareapp.view.fragments.BookAnAmbulanceFragment"
+        android:label="@string/title_book_an_ambulance"
+        tools:layout="@layout/fragment_book_ambulance">
+        <argument
+            android:name="selectedAmbulance"
+            app:argType="satya.app.healthcareapp.models.AmbulanceModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLabFragment"
+        android:name="satya.app.healthcareapp.view.fragments.SelectLabFragment"
+        android:label="Near By Labs [ {testName} ]"
+        tools:layout="@layout/fragment_select_lab">
+        <argument
+            android:name="selectedTest"
+            app:argType="satya.app.healthcareapp.models.LabTestModel" />
+        <argument
+            android:name="testName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicineCartFragment"
+        android:name="satya.app.healthcareapp.view.fragments.MedicineCartFragment"
+        android:label="@string/title_medicine_cart"
+        tools:layout="@layout/fragment_medicine_cart" />
+    <fragment
+        android:id="@+id/addHealthArticleFragment"
+        android:name="satya.app.healthcareapp.view.fragments.AddHealthArticleFragment"
+        android:label="@string/title_add_health_article"
+        tools:layout="@layout/fragment_add_health_article" />
+    <fragment
+        android:id="@+id/viewHealthArticleFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ViewHealthArticleFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_view_health_article">
+        <argument
+            android:name="selectedArticle"
+            app:argType="satya.app.healthcareapp.models.HealthArticleModel" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewDoctorAppointmentsFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ViewDoctorAppointmentsFragment"
+        android:label="@string/title_doctors"
+        tools:layout="@layout/fragment_view_doctor_appointments" />
+    <fragment
+        android:id="@+id/viewAmbulanceBookingFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ViewAmbulanceBookingFragment"
+        android:label="@string/title_ambulances"
+        tools:layout="@layout/fragment_view_ambulance_booking" />
+    <fragment
+        android:id="@+id/viewLabTestAppointmentsFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ViewLabTestAppointmentsFragment"
+        android:label="@string/title_lab_test"
+        tools:layout="@layout/fragment_view_lab_test_appointments" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="satya.app.healthcareapp.view.fragments.ChangePasswordFragment"
+        android:label="@string/title_change_password"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>

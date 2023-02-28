@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activites.SignUpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_register"
+                android:textColor="@color/blue_500"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="158dp"
+                tools:layout_editor_absoluteY="67dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginHorizontal="84dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/blue_500" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:text="@string/label_enter_username"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_username"
+
+                style="@style/Theme.HealthCareApp.EditText"
+                android:drawableEnd="@drawable/baseline_person"
+                android:hint="Satyam Singh"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@id/et_email" />
+
+            <TextView
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:text="@string/label_enter_email"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                style="@style/Theme.HealthCareApp.EditText"
+                android:drawableEnd="@drawable/baseline_email"
+                android:hint="@string/sample_gmail_com"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@id/et_password" />
+
+            <TextView
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:text="@string/label_enter_password"
+                android:textSize="14sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:padding="0dp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/blue_500">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/round_et_bg"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:maxLength="8"
+                    android:nextFocusDown="@id/btn_sign_up"
+                    android:padding="0dp"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                style="@style/Theme.HealthCareApp.RoundedButton"
+                android:text="@string/sign_up" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/blue_500" />
+
+            <TextView
+                android:id="@+id/tv_user_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/already_have_a_account"
+                android:textAlignment="center"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

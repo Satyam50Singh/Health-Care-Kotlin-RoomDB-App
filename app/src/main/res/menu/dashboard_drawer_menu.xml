@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/baseline_dashboard"
+            android:title="@string/action_dashboard" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/baseline_person"
+            android:title="@string/action_profile" />
+        <item
+            android:id="@+id/nav_find_doctors"
+            android:icon="@drawable/baseline_doctors"
+            android:title="@string/action_find_doctors" />
+        <item
+            android:id="@+id/nav_find_ambulance"
+            android:icon="@drawable/baseline_ambulance"
+            android:title="@string/action_find_ambulance" />
+        <item
+            android:id="@+id/nav_book_lab_test"
+            android:icon="@drawable/baseline_lab_test"
+            android:title="@string/action_book_lab_test" />
+        <item
+            android:id="@+id/nav_order_medicines"
+            android:icon="@drawable/baseline_order_medicine"
+            android:title="@string/action_order_medicine" />
+        <item
+            android:id="@+id/nav_health_articles"
+            android:icon="@drawable/baseline_health_article"
+            android:title="@string/action_health_articles" />
+        <item
+            android:id="@+id/nav_check_your_appointments"
+            android:icon="@drawable/baseline_appointment"
+            android:title="@string/action_check_your_appointments" />
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/baseline_my_order"
+            android:title="@string/action_orders" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/baseline_setting"
+            android:title="@string/action_settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/baseline_logout"
+            android:title="@string/action_logout" />
+    </group>
+</menu>

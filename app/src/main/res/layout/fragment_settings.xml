@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.fragments.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/user" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/Theme.HealthCareApp.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_personal_details"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_edit_profile"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/edit_personal_details"
+            android:src="@drawable/baseline_arrow_forward"
+            app:tint="@color/blue_500" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/moon"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/dark_mode"
+            android:textSize="14sp" />
+
+
+        <Switch
+            android:id="@+id/switch_change_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/profile"
+        android:textColor="@color/blue_500"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/baseline_edit"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/edit_profile"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_edit_profile_dialog"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/edit_profile"
+            android:src="@drawable/baseline_arrow_forward"
+            app:tint="@color/blue_500" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="42dp"
+            android:padding="3dp"
+            android:src="@drawable/baseline_password"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/change_password"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_change_password"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/change_password"
+            android:src="@drawable/baseline_arrow_forward"
+            app:tint="@color/blue_500" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/notifications"
+        android:textColor="@color/blue_500"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/baseline_notifications"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/notifications"
+            android:textSize="14sp" />
+
+        <Switch
+            android:id="@+id/switch_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/regional"
+        android:textColor="@color/blue_500"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/baseline_language"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/language"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_language"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/language"
+            android:src="@drawable/baseline_arrow_forward"
+            app:tint="@color/blue_500" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/baseline_logout"
+            app:tint="@color/blue_700" />
+
+        <TextView
+            style="@style/Theme.HealthCareApp.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:text="@string/logout"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_logout"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/logout"
+            android:src="@drawable/baseline_arrow_forward"
+            app:tint="@color/blue_500" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/app_ver_1_0_0"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+</LinearLayout>
