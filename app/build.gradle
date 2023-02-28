@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    namespace 'satya.app.healthcareapp'
+    namespace 'satya.app.healthcareapproomdb'
     compileSdk 33
 
     defaultConfig {
-        applicationId "satya.app.healthcareapp"
+        applicationId "satya.app.healthcareapproomdb"
         minSdk 27
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

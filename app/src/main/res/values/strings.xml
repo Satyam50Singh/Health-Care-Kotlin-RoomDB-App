@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Health Care</string>
+    <string name="app_name">Health Care Room DB</string>
     <string name="GOOGLE_API_KEY">AIzaSyA0_V6KVM9EoaZl59DjqobSSPEln_DA4FI</string>
     <string name="user_login">User Login</string>
     <string name="label_enter_username">Enter Username<font color="#FA1605"> <b>*</b></font></string>

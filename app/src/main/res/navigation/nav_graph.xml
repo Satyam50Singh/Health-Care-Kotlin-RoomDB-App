@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_dashboard"
-        android:name="satya.app.healthcareapp.view.fragments.DashboardFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_find_doctors"
-        android:name="satya.app.healthcareapp.view.fragments.FindDoctorsFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.FindDoctorsFragment"
         android:label="@string/title_find_doctors"
         tools:layout="@layout/fragment_find_doctors">
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_find_ambulance"
-        android:name="satya.app.healthcareapp.view.fragments.FindAmbulanceFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.FindAmbulanceFragment"
         android:label="@string/title_find_ambulance"
         tools:layout="@layout/fragment_find_ambulance">
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_book_lab_test"
-        android:name="satya.app.healthcareapp.view.fragments.BookLabTestFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.BookLabTestFragment"
         android:label="@string/title_book_lab_test"
         tools:layout="@layout/fragment_book_lab_test">
         <action
@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_health_articles"
-        android:name="satya.app.healthcareapp.view.fragments.HealthArticlesFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.HealthArticlesFragment"
         android:label="@string/title_health_articles"
         tools:layout="@layout/fragment_health_articles">
         <action
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_order_medicines"
-        android:name="satya.app.healthcareapp.view.fragments.OrderMedicineFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.OrderMedicineFragment"
         android:label="@string/title_order_medicines"
         tools:layout="@layout/fragment_order_medicine">
         <action
@@ -127,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_check_your_appointments"
-        android:name="satya.app.healthcareapp.view.fragments.BookingAppointmentDetailFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.BookingAppointmentDetailFragment"
         android:label="@string/title_booking_appointment_details"
         tools:layout="@layout/fragment_booking_appointment_detail">
         <action
@@ -142,12 +142,12 @@
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
-        android:name="satya.app.healthcareapp.view.fragments.ProfileFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_settings"
-        android:name="satya.app.healthcareapp.view.fragments.SettingsFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings">
         <action
@@ -167,12 +167,12 @@
     </fragment>
     <fragment
         android:id="@+id/nav_orders"
-        android:name="satya.app.healthcareapp.view.fragments.ViewOrderMedicineFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewOrderMedicineFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_view_order_medicine" />
     <fragment
         android:id="@+id/doctorsListFragment"
-        android:name="satya.app.healthcareapp.view.fragments.DoctorsListFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.DoctorsListFragment"
         android:label="Top {category}"
         tools:layout="@layout/fragment_doctors_list">
         <argument
@@ -195,86 +195,86 @@
     </fragment>
     <fragment
         android:id="@+id/viewDoctorDetailsFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ViewDoctorDetailsFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewDoctorDetailsFragment"
         android:label="@string/title_view_doctor_details"
         tools:layout="@layout/fragment_view_doctor_details">
         <argument
             android:name="selectedDoctor"
-            app:argType="satya.app.healthcareapp.models.DoctorListModel" />
+            app:argType="satya.app.healthcareapproomdb.models.DoctorListModel" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="satya.app.healthcareapp.view.fragments.MapFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.MapFragment"
         android:label="{doctorName}'s Location"
-        tools:layout="@layout/fragment_map">>
+        tools:layout="@layout/fragment_map">
         <argument
             android:name="selectedDoctor"
-            app:argType="satya.app.healthcareapp.models.DoctorListModel" />
+            app:argType="satya.app.healthcareapproomdb.models.DoctorListModel" />
         <argument
             android:name="doctorName"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/bookAnAmbulanceFragment"
-        android:name="satya.app.healthcareapp.view.fragments.BookAnAmbulanceFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.BookAnAmbulanceFragment"
         android:label="@string/title_book_an_ambulance"
         tools:layout="@layout/fragment_book_ambulance">
         <argument
             android:name="selectedAmbulance"
-            app:argType="satya.app.healthcareapp.models.AmbulanceModel" />
+            app:argType="satya.app.healthcareapproomdb.models.AmbulanceModel" />
     </fragment>
     <fragment
         android:id="@+id/selectLabFragment"
-        android:name="satya.app.healthcareapp.view.fragments.SelectLabFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.SelectLabFragment"
         android:label="Near By Labs [ {testName} ]"
         tools:layout="@layout/fragment_select_lab">
         <argument
             android:name="selectedTest"
-            app:argType="satya.app.healthcareapp.models.LabTestModel" />
+            app:argType="satya.app.healthcareapproomdb.models.LabTestModel" />
         <argument
             android:name="testName"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/medicineCartFragment"
-        android:name="satya.app.healthcareapp.view.fragments.MedicineCartFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.MedicineCartFragment"
         android:label="@string/title_medicine_cart"
         tools:layout="@layout/fragment_medicine_cart" />
     <fragment
         android:id="@+id/addHealthArticleFragment"
-        android:name="satya.app.healthcareapp.view.fragments.AddHealthArticleFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.AddHealthArticleFragment"
         android:label="@string/title_add_health_article"
         tools:layout="@layout/fragment_add_health_article" />
     <fragment
         android:id="@+id/viewHealthArticleFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ViewHealthArticleFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewHealthArticleFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_view_health_article">
         <argument
             android:name="selectedArticle"
-            app:argType="satya.app.healthcareapp.models.HealthArticleModel" />
+            app:argType="satya.app.healthcareapproomdb.models.HealthArticleModel" />
         <argument
             android:name="title"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/viewDoctorAppointmentsFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ViewDoctorAppointmentsFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewDoctorAppointmentsFragment"
         android:label="@string/title_doctors"
         tools:layout="@layout/fragment_view_doctor_appointments" />
     <fragment
         android:id="@+id/viewAmbulanceBookingFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ViewAmbulanceBookingFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewAmbulanceBookingFragment"
         android:label="@string/title_ambulances"
         tools:layout="@layout/fragment_view_ambulance_booking" />
     <fragment
         android:id="@+id/viewLabTestAppointmentsFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ViewLabTestAppointmentsFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ViewLabTestAppointmentsFragment"
         android:label="@string/title_lab_test"
         tools:layout="@layout/fragment_view_lab_test_appointments" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="satya.app.healthcareapp.view.fragments.ChangePasswordFragment"
+        android:name="satya.app.healthcareapproomdb.view.fragments.ChangePasswordFragment"
         android:label="@string/title_change_password"
         tools:layout="@layout/fragment_change_password" />
 </navigation>
