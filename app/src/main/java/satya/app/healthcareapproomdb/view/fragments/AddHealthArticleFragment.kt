@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.FragmentAddHealthArticleBinding
-import satya.app.healthcareapproomdb.db.Database
-import satya.app.healthcareapproomdb.models.HealthArticleModel
+import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.entities.HealthArticleEntity
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.DateTimeUtils
 import satya.app.healthcareapproomdb.utils.Utils
@@ -21,6 +25,7 @@ import java.util.*
 class AddHealthArticleFragment : Fragment() {
 
     private lateinit var binding: FragmentAddHealthArticleBinding
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,7 +39,10 @@ class AddHealthArticleFragment : Fragment() {
         return binding.root
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun initUI() {
+        appDatabase = AppDatabase.getDatabase(requireContext())
+
         binding.btnAddArticle.setOnClickListener {
             if (binding.etArticleHeading.text.isEmpty()) {
                 Utils.toastMessage(
@@ -44,7 +52,6 @@ class AddHealthArticleFragment : Fragment() {
             } else if (binding.etArticle.text.isEmpty()) {
                 Utils.toastMessage(requireContext(), getString(R.string.please_enter_article))
             } else {
-                val db = Database(requireContext(), "healthcare", null, 1)
                 val format = SimpleDateFormat(Constants.dateFormat)
                 val convertedDate = DateTimeUtils.getConvertedDate(
                     format.format(Date()), Constants.dateFormat, "MMM.dd.YYYY"
@@ -52,25 +59,21 @@ class AddHealthArticleFragment : Fragment() {
 
                 Log.e("TAG", "initUI: $convertedDate")
 
-                val addHealthArticle = db.addHealthArticle(
-                    requireContext(), HealthArticleModel(
-                        binding.etArticleHeading.text.toString(),
-                        convertedDate,
-                        binding.etArticle.text.toString()
-                    )
+                val healthArticleEntity = HealthArticleEntity(
+                    null,
+                    binding.etArticleHeading.text.toString(),
+                    convertedDate,
+                    binding.etArticle.text.toString()
                 )
-
-                if (addHealthArticle) {
-                    Snackbar.make(
-                        it, getString(R.string.article_saved_successfully), Snackbar.LENGTH_LONG
-                    ).show()
-                    clearControls()
-                    findNavController().navigateUp()
-                } else {
-                    Snackbar.make(
-                        it, getString(R.string.something_wrong_happened), Snackbar.LENGTH_LONG
-                    ).show()
+                GlobalScope.launch(Dispatchers.IO) {
+                    appDatabase.healthArticleDao().addArticle(healthArticleEntity)
                 }
+
+                Snackbar.make(
+                    it, getString(R.string.article_saved_successfully), Snackbar.LENGTH_LONG
+                ).show()
+                clearControls()
+                findNavController().navigateUp()
             }
         }
     }

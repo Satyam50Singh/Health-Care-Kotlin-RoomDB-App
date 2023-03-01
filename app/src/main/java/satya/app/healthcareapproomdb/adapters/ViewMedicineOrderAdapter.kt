@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import satya.app.healthcareapproomdb.databinding.ItemViewMedicineOrderBinding
+import satya.app.healthcareapproomdb.db.entities.OrderMedicineEntity
 import satya.app.healthcareapproomdb.models.MedicineModel
-import satya.app.healthcareapproomdb.models.OrderMedicineModel
 import satya.app.healthcareapproomdb.utils.Constants.Companion.rupeeSymbol
 
 class ViewMedicineOrderAdapter(
     val context: Context,
-    private val records: ArrayList<OrderMedicineModel>
+    private val records: List<OrderMedicineEntity>
 ) : RecyclerView.Adapter<ViewMedicineOrderAdapter.ViewHolder>() {
 
     private lateinit var adapter: InnerMedicineOrderAdapter

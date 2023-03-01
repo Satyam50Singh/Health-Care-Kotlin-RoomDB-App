@@ -4,15 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import satya.app.healthcareapproomdb.db.dao.AmbulanceBookingDao
-import satya.app.healthcareapproomdb.db.dao.DoctorAppointmentDao
-import satya.app.healthcareapproomdb.db.dao.LabBookingDao
-import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
-import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
-import satya.app.healthcareapproomdb.db.entities.BookLabTestEntity
+import satya.app.healthcareapproomdb.db.dao.*
+import satya.app.healthcareapproomdb.db.entities.*
 
 @Database(
-    entities = [BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class],
+    entities = [BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class, OrderMedicineEntity::class,
+        HealthArticleEntity::class],
     version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -20,6 +17,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun doctorAppointmentDao(): DoctorAppointmentDao
     abstract fun ambulanceBookingDao(): AmbulanceBookingDao
     abstract fun labBookingDao(): LabBookingDao
+    abstract fun orderMedicineDao(): OrderMedicineDao
+    abstract fun healthArticleDao(): HealthArticleDao
 
     companion object {
 

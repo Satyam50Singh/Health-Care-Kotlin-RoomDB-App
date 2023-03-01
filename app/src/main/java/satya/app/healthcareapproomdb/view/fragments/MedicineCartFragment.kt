@@ -9,14 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.MedicineCartAdapter
 import satya.app.healthcareapproomdb.adapters.OrderMedicineAdapter.Companion.selectedMedicineList
 import satya.app.healthcareapproomdb.databinding.DialogOrderMedicineBinding
 import satya.app.healthcareapproomdb.databinding.FragmentMedicineCartBinding
+import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.entities.OrderMedicineEntity
 import satya.app.healthcareapproomdb.models.MedicineModel
-import satya.app.healthcareapproomdb.models.OrderMedicineModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
@@ -29,6 +33,7 @@ class MedicineCartFragment : Fragment() {
     private lateinit var cartList: ArrayList<MedicineModel>
     private lateinit var adapter: MedicineCartAdapter
     private lateinit var dialogBinding: DialogOrderMedicineBinding
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,6 +46,7 @@ class MedicineCartFragment : Fragment() {
     }
 
     private fun initUI() {
+        appDatabase = AppDatabase.getDatabase(requireContext())
         cartList = selectedMedicineList
 
         if (cartList.size > 0) {
@@ -122,8 +128,8 @@ class MedicineCartFragment : Fragment() {
             } else {
                 val db = Database(requireContext(), Constants.DB_NAME, null, 1)
 
-                val orderMedicineModel = OrderMedicineModel(
-                    -1,
+                val orderMedicineEntity = OrderMedicineEntity(
+                    null,
                     PreferenceManager.getSharedPreferencesIntValues(
                         requireContext(), Constants.PREF_USER_ID
                     ),
@@ -139,27 +145,24 @@ class MedicineCartFragment : Fragment() {
                     Gson().toJson(selectedMedicineList)
                 )
 
-                val result = db.orderMedicine(orderMedicineModel)
-                if (result) {
-                    PreferenceManager.clearSharedPreference(
-                        requireContext(), Constants.PREF_CART_MEDICINE_IDS_KEYS
-                    )
-                    PreferenceManager.clearSharedPreference(
-                        requireContext(), Constants.PREF_CART_MEDICINE_QUANTITY_VALUES
-                    )
-                    selectedMedicineList.clear()
-                    cartCount = 0
-                    setCartCount()
-                    adapter.notifyDataSetChanged()
-                    Utils.toastMessage(
-                        requireContext(), getString(R.string.order_booked_successfully)
-                    )
-                    findNavController().navigateUp()
-                } else {
-                    Utils.toastMessage(
-                        requireContext(), getString(R.string.something_wrong_happened)
-                    )
+                GlobalScope.launch(Dispatchers.IO) {
+                    appDatabase.orderMedicineDao().bookOrder(orderMedicineEntity)
                 }
+
+                PreferenceManager.clearSharedPreference(
+                    requireContext(), Constants.PREF_CART_MEDICINE_IDS_KEYS
+                )
+                PreferenceManager.clearSharedPreference(
+                    requireContext(), Constants.PREF_CART_MEDICINE_QUANTITY_VALUES
+                )
+                selectedMedicineList.clear()
+                cartCount = 0
+                setCartCount()
+                adapter.notifyDataSetChanged()
+                Utils.toastMessage(
+                    requireContext(), getString(R.string.order_booked_successfully)
+                )
+                findNavController().navigateUp()
             }
             dialog.dismiss()
         }
