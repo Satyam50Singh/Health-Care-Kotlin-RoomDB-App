@@ -1,5 +1,7 @@
 package satya.app.healthcareapproomdb.utils
 
+const val DATABASE_NAME = "health_care_database"
+
 class Constants {
     companion object {
         const val PREF_TAG: String = "HealthCareApp"
@@ -29,6 +31,6 @@ class Constants {
         const val dateMonthFormat = "dd MMM"
         const val dayFormat = "EEE"
 
-        const val rupeeSymbol ="₹"
+        const val rupeeSymbol = "₹"
     }
 }

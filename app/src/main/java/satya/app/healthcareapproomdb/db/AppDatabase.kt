@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import satya.app.healthcareapproomdb.db.dao.*
 import satya.app.healthcareapproomdb.db.entities.*
+import satya.app.healthcareapproomdb.utils.DATABASE_NAME
 
 @Database(
     entities = [BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class, OrderMedicineEntity::class,
         HealthArticleEntity::class],
-    version = 3
+    version = 3,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -35,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                 var instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "health_care_database"
+                    DATABASE_NAME
                 ).fallbackToDestructiveMigration()
                     .build()
 

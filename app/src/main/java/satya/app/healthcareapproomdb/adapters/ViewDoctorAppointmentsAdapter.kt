@@ -12,7 +12,7 @@ class ViewDoctorAppointmentsAdapter(
     private val commonItemListClickListener: CommonItemListClickListener<BookAnAppointmentEntity>
 ) : RecyclerView.Adapter<ViewDoctorAppointmentsAdapter.ViewHolder>() {
 
-    class ViewHolder(val itemViewDoctorAppointmentsBinding: ItemViewDoctorAppointmentBinding) :
+    inner class ViewHolder(val itemViewDoctorAppointmentsBinding: ItemViewDoctorAppointmentBinding) :
         RecyclerView.ViewHolder(itemViewDoctorAppointmentsBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

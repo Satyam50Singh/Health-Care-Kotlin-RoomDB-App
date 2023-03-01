@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.fragment.app.viewModels
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.ViewDoctorAppointmentsAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorAppointmentsBinding
@@ -19,7 +16,10 @@ import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 import satya.app.healthcareapproomdb.models.DoctorListModel
+import satya.app.healthcareapproomdb.utils.Constants
+import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
+import satya.app.healthcareapproomdb.viewmodels.DoctorAppointmentViewModel
 
 class ViewDoctorAppointmentsFragment : Fragment(),
     CommonItemListClickListener<BookAnAppointmentEntity> {
@@ -29,6 +29,7 @@ class ViewDoctorAppointmentsFragment : Fragment(),
     private lateinit var doctorsAppointmentList: List<BookAnAppointmentEntity>
     private lateinit var dialogBinding: FragmentViewDoctorDetailsBinding
     private lateinit var appDatabase: AppDatabase
+    private val doctorAppointmentViewModel: DoctorAppointmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,31 +43,34 @@ class ViewDoctorAppointmentsFragment : Fragment(),
     }
 
     private fun initUI() {
-        appDatabase = AppDatabase.getDatabase(requireContext())
-
-        GlobalScope.launch {
-            doctorsAppointmentList = appDatabase.doctorAppointmentDao().getAllAppointmentsRecord()
-            Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
-            setRecords(doctorsAppointmentList)
-        }
+        doctorAppointmentViewModel.getAllAppointments(
+            requireContext(),
+            PreferenceManager.getSharedPreferencesIntValues(
+                requireContext(),
+                Constants.PREF_USER_ID
+            )
+        )
+            .observe(viewLifecycleOwner) { data ->
+                doctorsAppointmentList = data
+                Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
+                setRecords(doctorsAppointmentList)
+            }
     }
 
-    private suspend fun setRecords(doctorsAppointmentList: List<BookAnAppointmentEntity>) {
+    private fun setRecords(doctorsAppointmentList: List<BookAnAppointmentEntity>) {
         // adapter binding
-        withContext(Dispatchers.Main) {
-            if (doctorsAppointmentList.isNotEmpty()) {
-                adapter =
-                    ViewDoctorAppointmentsAdapter(
-                        doctorsAppointmentList,
-                        this@ViewDoctorAppointmentsFragment
-                    )
-                binding.rcvViewDoctorsAppointments.adapter = adapter
-                binding.rcvViewDoctorsAppointments.visibility = View.VISIBLE
-                binding.tvNoAppointmentBooked.visibility = View.GONE
-            } else {
-                binding.rcvViewDoctorsAppointments.visibility = View.GONE
-                binding.tvNoAppointmentBooked.visibility = View.VISIBLE
-            }
+        if (doctorsAppointmentList.isNotEmpty()) {
+            adapter =
+                ViewDoctorAppointmentsAdapter(
+                    doctorsAppointmentList,
+                    this@ViewDoctorAppointmentsFragment
+                )
+            binding.rcvViewDoctorsAppointments.adapter = adapter
+            binding.rcvViewDoctorsAppointments.visibility = View.VISIBLE
+            binding.tvNoAppointmentBooked.visibility = View.GONE
+        } else {
+            binding.rcvViewDoctorsAppointments.visibility = View.GONE
+            binding.tvNoAppointmentBooked.visibility = View.VISIBLE
         }
     }
 
