@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,12 +17,17 @@ import satya.app.healthcareapproomdb.databinding.FragmentViewAmbulanceBookingBin
 import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
+import satya.app.healthcareapproomdb.utils.Constants
+import satya.app.healthcareapproomdb.utils.PreferenceManager
+import satya.app.healthcareapproomdb.viewmodels.AmbulanceBookingViewModel
 
-class ViewAmbulanceBookingFragment : Fragment(), CommonItemListClickListener<BookAnAmbulanceEntity> {
+class ViewAmbulanceBookingFragment : Fragment(),
+    CommonItemListClickListener<BookAnAmbulanceEntity> {
 
     private lateinit var binding: FragmentViewAmbulanceBookingBinding
     private lateinit var adapter: ViewAmbulanceBookingAdapter
     private lateinit var appDatabase: AppDatabase
+    private val viewModel: AmbulanceBookingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,23 +42,31 @@ class ViewAmbulanceBookingFragment : Fragment(), CommonItemListClickListener<Boo
 
     private fun initUI() {
         appDatabase = AppDatabase.getDatabase(requireContext())
+        var bookedAmbulanceList: List<BookAnAmbulanceEntity>
 
-        GlobalScope.launch {
-            val bookedAmbulanceList =  appDatabase.ambulanceBookingDao().getAllAmbulanceBookingRecord()
-            withContext(Dispatchers.Main) {
-                Log.e("TAG", "initUI::bookedAmbulanceList : ${bookedAmbulanceList.size}")
-
-                if (bookedAmbulanceList.isNotEmpty()) {
-                    adapter = ViewAmbulanceBookingAdapter(bookedAmbulanceList, this@ViewAmbulanceBookingFragment)
-                    binding.rcvViewAmbulanceBooking.adapter = adapter
-                    binding.tvNoAmbulanceBooked.visibility = View.GONE
-                    binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
-                } else {
-                    binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
-                    binding.rcvViewAmbulanceBooking.visibility = View.GONE
+        viewModel.getAllAppointments(
+            PreferenceManager.getSharedPreferencesIntValues(
+                requireContext(),
+                Constants.PREF_USER_ID
+            )
+        )
+            .observe(viewLifecycleOwner) { data ->
+                if (data.isNotEmpty()) {
+                    bookedAmbulanceList = data
+                    if (bookedAmbulanceList.isNotEmpty()) {
+                        adapter = ViewAmbulanceBookingAdapter(
+                            bookedAmbulanceList,
+                            this
+                        )
+                        binding.rcvViewAmbulanceBooking.adapter = adapter
+                        binding.tvNoAmbulanceBooked.visibility = View.GONE
+                        binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
+                    } else {
+                        binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
+                        binding.rcvViewAmbulanceBooking.visibility = View.GONE
+                    }
                 }
             }
-        }
     }
 
     override fun onItemClick(item: BookAnAmbulanceEntity) {

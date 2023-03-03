@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +23,7 @@ import satya.app.healthcareapproomdb.models.AmbulanceModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
+import satya.app.healthcareapproomdb.viewmodels.AmbulanceBookingViewModel
 import java.util.*
 
 class BookAnAmbulanceFragment : Fragment() {
@@ -30,6 +32,7 @@ class BookAnAmbulanceFragment : Fragment() {
     private lateinit var ambulanceDetails: AmbulanceModel
     private val args by navArgs<BookAnAmbulanceFragmentArgs>()
     private lateinit var appDatabase: AppDatabase
+    private val viewModel: AmbulanceBookingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -132,9 +135,7 @@ class BookAnAmbulanceFragment : Fragment() {
                             etPhone.text.toString()
                         )
 
-                        GlobalScope.launch(Dispatchers.IO) {
-                            appDatabase.ambulanceBookingDao().bookAmbulance(bookAnAmbulanceEntity)
-                        }
+                        viewModel.bookAnAppointment(bookAnAmbulanceEntity)
                         clearControls()
                         Snackbar.make(
                             it,
