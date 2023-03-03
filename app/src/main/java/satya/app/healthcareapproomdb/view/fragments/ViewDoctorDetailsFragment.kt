@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -26,6 +27,7 @@ import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.DateTimeUtils
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
+import satya.app.healthcareapproomdb.viewmodels.DoctorAppointmentViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,6 +44,8 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
     private lateinit var doctor: DoctorListModel
     private val args by navArgs<ViewDoctorDetailsFragmentArgs>()
     private lateinit var appDatabase: AppDatabase
+    private val viewModel: DoctorAppointmentViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -134,9 +138,7 @@ class ViewDoctorDetailsFragment : Fragment(), CommonClickListener {
                     doctor.category
                 )
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    appDatabase.doctorAppointmentDao().bookAppointment(bookAnAppointmentEntity)
-                }
+                viewModel.bookAnAppointment(bookAnAppointmentEntity)
 
                 Utils.toastMessage(
                     requireContext(),

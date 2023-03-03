@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.ViewDoctorAppointmentsAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorAppointmentsBinding
 import satya.app.healthcareapproomdb.databinding.FragmentViewDoctorDetailsBinding
-import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.entities.BookAnAppointmentEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 import satya.app.healthcareapproomdb.models.DoctorListModel
@@ -28,7 +28,6 @@ class ViewDoctorAppointmentsFragment : Fragment(),
     private lateinit var adapter: ViewDoctorAppointmentsAdapter
     private lateinit var doctorsAppointmentList: List<BookAnAppointmentEntity>
     private lateinit var dialogBinding: FragmentViewDoctorDetailsBinding
-    private lateinit var appDatabase: AppDatabase
     private val doctorAppointmentViewModel: DoctorAppointmentViewModel by viewModels()
 
     override fun onCreateView(
@@ -44,16 +43,17 @@ class ViewDoctorAppointmentsFragment : Fragment(),
 
     private fun initUI() {
         doctorAppointmentViewModel.getAllAppointments(
-            requireContext(),
             PreferenceManager.getSharedPreferencesIntValues(
                 requireContext(),
                 Constants.PREF_USER_ID
             )
         )
             .observe(viewLifecycleOwner) { data ->
-                doctorsAppointmentList = data
-                Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
-                setRecords(doctorsAppointmentList)
+                if (data.isNotEmpty()) {
+                    doctorsAppointmentList = data
+                    Log.e("TAG", "initUI::doctorsAppointmentList : ${doctorsAppointmentList.size}")
+                    setRecords(doctorsAppointmentList)
+                }
             }
     }
 

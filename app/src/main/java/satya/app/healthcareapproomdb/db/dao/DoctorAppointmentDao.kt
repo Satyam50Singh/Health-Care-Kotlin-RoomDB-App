@@ -11,7 +11,7 @@ interface DoctorAppointmentDao {
     fun getAllAppointmentsRecord(userId: Int): LiveData<List<BookAnAppointmentEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun bookAppointment(bookAnAppointmentEntity: BookAnAppointmentEntity)
+    suspend fun bookAppointment(bookAnAppointmentEntity: BookAnAppointmentEntity): Long
 
     @Delete
     suspend fun cancelAppointment(bookAnAppointmentEntity: BookAnAppointmentEntity)
