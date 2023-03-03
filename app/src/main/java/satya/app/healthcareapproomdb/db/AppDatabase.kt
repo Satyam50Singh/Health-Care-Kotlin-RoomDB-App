@@ -9,13 +9,14 @@ import satya.app.healthcareapproomdb.db.entities.*
 import satya.app.healthcareapproomdb.utils.DATABASE_NAME
 
 @Database(
-    entities = [BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class, OrderMedicineEntity::class,
+    entities = [UserAuthEntity::class, BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class, OrderMedicineEntity::class,
         HealthArticleEntity::class],
     version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun userAuthDao(): UserAuthDao
     abstract fun doctorAppointmentDao(): DoctorAppointmentDao
     abstract fun ambulanceBookingDao(): AmbulanceBookingDao
     abstract fun labBookingDao(): LabBookingDao

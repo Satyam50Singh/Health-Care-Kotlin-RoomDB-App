@@ -1,5 +1,6 @@
 package satya.app.healthcareapproomdb.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,12 +11,12 @@ import satya.app.healthcareapproomdb.db.entities.UserAuthEntity
 interface UserAuthDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun userSignUp(userEntity: UserAuthEntity)
+    suspend fun userSignUp(userEntity: UserAuthEntity): Long
 
     @Query("SELECT * FROM user_auth WHERE email LIKE :email LIMIT 1")
-    suspend fun checkUserExistence(email: String): UserAuthEntity?
+    fun checkUserExistence(email: String): LiveData<UserAuthEntity>
 
     @Query("SELECT * FROM user_auth WHERE email LIKE :email AND password LIKE :password")
-    suspend fun userLogin(email: String, password: String): UserAuthEntity?
+    fun userLogin(email: String, password: String): LiveData<UserAuthEntity>
 
 }

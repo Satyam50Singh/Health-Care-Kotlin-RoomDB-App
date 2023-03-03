@@ -8,12 +8,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ActivitySignUpBinding
 import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.entities.UserAuthEntity
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.utils.Utils.Companion.toastMessage
+import satya.app.healthcareapproomdb.viewmodels.UserAuthViewModel
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -23,6 +27,8 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
+
+    private val viewModel: UserAuthViewModel by viewModels()
 
     companion object {
         private const val CHANNEL_NAME = "CHANNEL_1"
@@ -51,7 +57,7 @@ class SignUpActivity : AppCompatActivity() {
                 toastMessage(this, getString(R.string.please_enter_valid_email))
             } else if (password.isEmpty()) {
                 toastMessage(this, getString(R.string.please_enter_password))
-            } else if (password.length <=7) {
+            } else if (password.length <= 7) {
                 toastMessage(this, getString(R.string.validate_password_length))
             } else {
                 doSignUp(username, email, password)
@@ -63,20 +69,22 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun doSignUp(username: String, email: String, password: String) {
-        val db = Database(applicationContext, "healthcare", null, 1)
-        if (!db.checkUser(email)) {
-            val registerUser = db.registerUser(username, email, password)
-            if (registerUser) {
-                launchNotification()
-                toastMessage(this, getString(R.string.user_registered_successfully))
-                Utils.switchActivity(this, LoginActivity::class.java)
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_in_right)
-                finishAffinity()
-            } else {
-                toastMessage(this, getString(R.string.something_wrong_happened))
-            }
-        } else {
-            toastMessage(this, getString(R.string.user_already_exist))
+        try {
+            viewModel.checkUserExistence(email)
+                .observe(this) { data ->
+                    if (data == null) {
+                        viewModel.userSignUp(UserAuthEntity(null, username, email, password))
+                        launchNotification()
+                        toastMessage(this, getString(R.string.user_registered_successfully))
+                        Utils.switchActivity(this, LoginActivity::class.java)
+                        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_in_right)
+                        finishAffinity()
+                    } else {
+                        toastMessage(this, getString(R.string.user_already_exist))
+                    }
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

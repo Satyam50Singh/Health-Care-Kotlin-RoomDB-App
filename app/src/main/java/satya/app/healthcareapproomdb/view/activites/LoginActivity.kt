@@ -3,6 +3,7 @@ package satya.app.healthcareapproomdb.view.activites
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ActivityLoginBinding
@@ -17,10 +18,13 @@ import satya.app.healthcareapproomdb.utils.PreferenceManager.Companion.setShared
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.utils.Utils.Companion.switchActivity
 import satya.app.healthcareapproomdb.utils.Utils.Companion.toastMessage
+import satya.app.healthcareapproomdb.viewmodels.UserAuthViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val viewModel: UserAuthViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -52,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 toastMessage(this, getString(R.string.please_enter_valid_email))
             } else if (password.isEmpty()) {
                 toastMessage(this, getString(R.string.please_enter_password))
-            }else {
+            } else {
                 doLogin(email, password)
             }
         }
@@ -68,30 +72,38 @@ class LoginActivity : AppCompatActivity() {
     // user login code
     private fun doLogin(email: String, password: String) {
         binding.progressBar.visibility = View.VISIBLE
-        Log.e(TAG, "doLogin: email :$email and password : $password")
-        val db = Database(this, "healthcare", null, 1)
-        if (db.checkUser(email)) {
-            val loginUser = db.loginUser(email, password)
-            if (loginUser == 1) {
-                binding.progressBar.visibility = View.GONE
+        viewModel.checkUserExistence(email).observe(this) { data ->
+                if (data != null) {
+                    viewModel.userLogIn(email, password).observe(this) { result ->
+                            run {
+                                if (result != null) {
+                                    binding.progressBar.visibility = View.GONE
 
-                setSharedPreferences(this, PREF_EMAIL, email)
-                setSharedPreferences(this, PREF_PASSWORD, password)
-                setSharedPreferences(this, PREF_SESSION_ID, sessionId)
-                setSharedPreferences(this, PREF_REMEMBER_ME, binding.cbRememberMe.isChecked)
+                                    setSharedPreferences(this, PREF_EMAIL, email)
+                                    setSharedPreferences(this, PREF_PASSWORD, password)
+                                    setSharedPreferences(this, PREF_SESSION_ID, sessionId)
+                                    setSharedPreferences(
+                                        this, PREF_REMEMBER_ME, binding.cbRememberMe.isChecked
+                                    )
 
-                toastMessage(this, getString(R.string.logged_in_successfully))
-                switchActivity(this, DashboardActivity::class.java)
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_in_right)
-                finishAffinity()
-            } else {
-                binding.progressBar.visibility = View.GONE
-                toastMessage(this, getString(R.string.invalid_credentials))
+                                    toastMessage(this, getString(R.string.logged_in_successfully))
+                                    switchActivity(this, DashboardActivity::class.java)
+                                    overridePendingTransition(
+                                        R.anim.enter_from_left, R.anim.exit_in_right
+                                    )
+                                    finishAffinity()
+                                } else {
+                                    binding.progressBar.visibility = View.GONE
+                                    toastMessage(this, getString(R.string.invalid_credentials))
+                                }
+                            }
+                        }
+                } else {
+                    toastMessage(this, getString(R.string.user_does_not_exit))
+                    binding.progressBar.visibility = View.GONE
+                }
             }
-        } else {
-            toastMessage(this, getString(R.string.user_does_not_exit))
-            binding.progressBar.visibility = View.GONE
-        }
+        Log.e(TAG, "doLogin: email :$email and password : $password")
     }
 
     companion object {
