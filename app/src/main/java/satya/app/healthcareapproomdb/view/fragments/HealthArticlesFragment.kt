@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -15,14 +16,17 @@ import satya.app.healthcareapproomdb.databinding.FragmentHealthArticlesBinding
 import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.entities.HealthArticleEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
+import satya.app.healthcareapproomdb.utils.Constants
+import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
+import satya.app.healthcareapproomdb.viewmodels.HealthArticleViewModel
 
 class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArticleEntity> {
 
     private lateinit var binding: FragmentHealthArticlesBinding
     private lateinit var adapter: HealthArticleAdapter
     private var healthArticleList = ArrayList<HealthArticleEntity>()
-    private lateinit var appDatabase: AppDatabase
+    private val viewModel: HealthArticleViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,17 +39,16 @@ class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArt
         return binding.root
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun initUI() {
         healthArticleList = Utils.getHealthArticles()
-        appDatabase = AppDatabase.getDatabase(requireContext())
-        var healthArticles: ArrayList<HealthArticleEntity>
-
-        GlobalScope.launch {
-            healthArticles =
-                appDatabase.healthArticleDao().getAllArticles() as ArrayList<HealthArticleEntity>
-            setArticleAdapter(healthArticles)
-        }
+        viewModel.getAllArticles()
+            .observe(viewLifecycleOwner) { data ->
+                if (data.isNotEmpty()) {
+                    val healthArticles: ArrayList<HealthArticleEntity> =
+                        data as ArrayList<HealthArticleEntity>
+                    setArticleAdapter(healthArticles)
+                }
+            }
 
         binding.fabAddArticles.setOnClickListener {
             findNavController().navigate(R.id.action_nav_healthArticlesFragment_to_addHealthArticleFragment)

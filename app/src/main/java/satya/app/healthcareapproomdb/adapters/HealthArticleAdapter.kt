@@ -10,7 +10,7 @@ import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 
 class HealthArticleAdapter(
     val context: Context,
-    private val healthArticleList: ArrayList<HealthArticleEntity>,
+    private val healthArticleList: List<HealthArticleEntity>,
     private val commonItemListClickListener: CommonItemListClickListener<HealthArticleEntity>
 ) : RecyclerView.Adapter<HealthArticleAdapter.ViewHolder>() {
 

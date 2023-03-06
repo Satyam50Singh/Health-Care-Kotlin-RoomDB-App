@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -19,13 +20,14 @@ import satya.app.healthcareapproomdb.db.entities.HealthArticleEntity
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.DateTimeUtils
 import satya.app.healthcareapproomdb.utils.Utils
+import satya.app.healthcareapproomdb.viewmodels.HealthArticleViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddHealthArticleFragment : Fragment() {
 
     private lateinit var binding: FragmentAddHealthArticleBinding
-    private lateinit var appDatabase: AppDatabase
+    private val viewModel: HealthArticleViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,7 +43,6 @@ class AddHealthArticleFragment : Fragment() {
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun initUI() {
-        appDatabase = AppDatabase.getDatabase(requireContext())
 
         binding.btnAddArticle.setOnClickListener {
             if (binding.etArticleHeading.text.isEmpty()) {
@@ -65,10 +66,7 @@ class AddHealthArticleFragment : Fragment() {
                     convertedDate,
                     binding.etArticle.text.toString()
                 )
-                GlobalScope.launch(Dispatchers.IO) {
-                    appDatabase.healthArticleDao().addArticle(healthArticleEntity)
-                }
-
+                viewModel.addArticle(healthArticleEntity)
                 Snackbar.make(
                     it, getString(R.string.article_saved_successfully), Snackbar.LENGTH_LONG
                 ).show()
