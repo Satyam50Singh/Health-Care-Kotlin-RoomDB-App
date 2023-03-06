@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ItemMedicineBinding
 import satya.app.healthcareapproomdb.models.MedicineModel
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_CART_MEDICINE_IDS_KEYS
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_CART_MEDICINE_QUANTITY_VALUES
-import satya.app.healthcareapproomdb.utils.Constants.Companion.rupeeSymbol
+import satya.app.healthcareapproomdb.utils.Constants.PREF_CART_MEDICINE_IDS_KEYS
+import satya.app.healthcareapproomdb.utils.Constants.PREF_CART_MEDICINE_QUANTITY_VALUES
+import satya.app.healthcareapproomdb.utils.Constants.rupeeSymbol
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.view.fragments.OrderMedicineFragment.Companion.cartCount

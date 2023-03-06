@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.databinding.ItemHealthArticlesBinding
+import satya.app.healthcareapproomdb.db.entities.HealthArticleEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.HealthArticleModel
 
 class HealthArticleAdapter(
     val context: Context,
-    private val healthArticleList: ArrayList<HealthArticleModel>,
-    private val commonItemListClickListener: CommonItemListClickListener<HealthArticleModel>
+    private val healthArticleList: ArrayList<HealthArticleEntity>,
+    private val commonItemListClickListener: CommonItemListClickListener<HealthArticleEntity>
 ) : RecyclerView.Adapter<HealthArticleAdapter.ViewHolder>() {
 
 

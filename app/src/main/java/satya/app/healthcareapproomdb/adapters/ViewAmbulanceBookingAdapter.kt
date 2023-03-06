@@ -7,7 +7,6 @@ import satya.app.healthcareapproomdb.databinding.ItemViewAmbulanceBookingBinding
 import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 
-
 class ViewAmbulanceBookingAdapter(
     private var records: List<BookAnAmbulanceEntity>,
     private val commonItemListClickListener: CommonItemListClickListener<BookAnAmbulanceEntity>

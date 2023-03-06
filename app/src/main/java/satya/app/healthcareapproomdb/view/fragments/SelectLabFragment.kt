@@ -22,7 +22,7 @@ import satya.app.healthcareapproomdb.models.LabTestModel
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
-import satya.app.healthcareapproomdb.utils.Utils.Companion.getLabsList
+import satya.app.healthcareapproomdb.utils.Utils.getLabsList
 import java.util.*
 
 class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> {

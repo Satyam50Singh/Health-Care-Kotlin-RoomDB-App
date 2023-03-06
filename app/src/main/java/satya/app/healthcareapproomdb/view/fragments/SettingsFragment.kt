@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.FragmentSettingsBinding
 import satya.app.healthcareapproomdb.utils.Constants
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_NOTIFICATION_VALUE
+import satya.app.healthcareapproomdb.utils.Constants.PREF_NOTIFICATION_VALUE
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
 

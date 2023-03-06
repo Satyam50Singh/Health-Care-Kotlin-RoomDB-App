@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 import satya.app.healthcareapproomdb.databinding.ItemViewMedicineOrderBinding
 import satya.app.healthcareapproomdb.db.entities.OrderMedicineEntity
 import satya.app.healthcareapproomdb.models.MedicineModel
-import satya.app.healthcareapproomdb.utils.Constants.Companion.rupeeSymbol
+import satya.app.healthcareapproomdb.utils.Constants.rupeeSymbol
 
 class ViewMedicineOrderAdapter(
     val context: Context,

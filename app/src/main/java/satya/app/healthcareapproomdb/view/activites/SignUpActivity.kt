@@ -10,15 +10,12 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ActivitySignUpBinding
-import satya.app.healthcareapproomdb.db.Database
 import satya.app.healthcareapproomdb.db.entities.UserAuthEntity
 import satya.app.healthcareapproomdb.utils.Utils
-import satya.app.healthcareapproomdb.utils.Utils.Companion.toastMessage
+import satya.app.healthcareapproomdb.utils.Utils.toastMessage
 import satya.app.healthcareapproomdb.viewmodels.UserAuthViewModel
-
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding

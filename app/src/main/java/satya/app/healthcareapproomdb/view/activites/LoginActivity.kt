@@ -8,16 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ActivityLoginBinding
 import satya.app.healthcareapproomdb.db.Database
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_EMAIL
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_PASSWORD
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_REMEMBER_ME
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_SESSION_ID
-import satya.app.healthcareapproomdb.utils.Constants.Companion.sessionId
+import satya.app.healthcareapproomdb.utils.Constants.PREF_EMAIL
+import satya.app.healthcareapproomdb.utils.Constants.PREF_PASSWORD
+import satya.app.healthcareapproomdb.utils.Constants.PREF_REMEMBER_ME
+import satya.app.healthcareapproomdb.utils.Constants.PREF_SESSION_ID
+import satya.app.healthcareapproomdb.utils.Constants.sessionId
 import satya.app.healthcareapproomdb.utils.PreferenceManager
-import satya.app.healthcareapproomdb.utils.PreferenceManager.Companion.setSharedPreferences
+import satya.app.healthcareapproomdb.utils.PreferenceManager.setSharedPreferences
 import satya.app.healthcareapproomdb.utils.Utils
-import satya.app.healthcareapproomdb.utils.Utils.Companion.switchActivity
-import satya.app.healthcareapproomdb.utils.Utils.Companion.toastMessage
+import satya.app.healthcareapproomdb.utils.Utils.switchActivity
+import satya.app.healthcareapproomdb.utils.Utils.toastMessage
 import satya.app.healthcareapproomdb.viewmodels.UserAuthViewModel
 
 class LoginActivity : AppCompatActivity() {

@@ -11,7 +11,6 @@ import satya.app.healthcareapproomdb.databinding.ItemTestsListBinding
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 import satya.app.healthcareapproomdb.models.LabTestModel
 
-
 class TestListAdapter(
     val context: Context,
     private var testList: ArrayList<LabTestModel>,

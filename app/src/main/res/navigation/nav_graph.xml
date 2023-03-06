@@ -251,11 +251,11 @@
         android:label="{title}"
         tools:layout="@layout/fragment_view_health_article">
         <argument
-            android:name="selectedArticle"
-            app:argType="satya.app.healthcareapproomdb.models.HealthArticleModel" />
-        <argument
             android:name="title"
             app:argType="string" />
+        <argument
+            android:name="selectedArticle"
+            app:argType="satya.app.healthcareapproomdb.db.entities.HealthArticleEntity" />
     </fragment>
     <fragment
         android:id="@+id/viewDoctorAppointmentsFragment"

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import satya.app.healthcareapproomdb.databinding.ItemViewLabTestBookingBinding
 import satya.app.healthcareapproomdb.db.entities.BookLabTestEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.utils.Constants.Companion.rupeeSymbol
+import satya.app.healthcareapproomdb.utils.Constants.rupeeSymbol
 
 class ViewLabTestAppointmentsAdapter(
     private var records: List<BookLabTestEntity>,

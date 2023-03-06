@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.FragmentProfileBinding
 import satya.app.healthcareapproomdb.listeners.RefreshFragmentListener
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_AADHAAR_NUMBER
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_EMAIL
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_EMERGENCY_CONTACT
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_PERSONAL_CONTACT
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_USERNAME
-import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_USER_ADDRESS
+import satya.app.healthcareapproomdb.utils.Constants.PREF_AADHAAR_NUMBER
+import satya.app.healthcareapproomdb.utils.Constants.PREF_EMAIL
+import satya.app.healthcareapproomdb.utils.Constants.PREF_EMERGENCY_CONTACT
+import satya.app.healthcareapproomdb.utils.Constants.PREF_PERSONAL_CONTACT
+import satya.app.healthcareapproomdb.utils.Constants.PREF_USERNAME
+import satya.app.healthcareapproomdb.utils.Constants.PREF_USER_ADDRESS
 import satya.app.healthcareapproomdb.utils.PreferenceManager
-import satya.app.healthcareapproomdb.utils.Utils.Companion.showProfileUpdateDialog
+import satya.app.healthcareapproomdb.utils.Utils.showProfileUpdateDialog
 
 class ProfileFragment : Fragment(), RefreshFragmentListener {
 

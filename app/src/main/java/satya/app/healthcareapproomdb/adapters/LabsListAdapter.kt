@@ -11,7 +11,7 @@ import satya.app.healthcareapproomdb.models.LabListModel
 class LabsListAdapter(
     val context: Context,
     var labsList: ArrayList<LabListModel>,
-    val commonItemListClickListener: CommonItemListClickListener<LabListModel>
+    private val commonItemListClickListener: CommonItemListClickListener<LabListModel>
 ) : RecyclerView.Adapter<LabsListAdapter.ViewHolder>() {
 
     class ViewHolder(val itemLabsListBinding: ItemLabsListBinding) :

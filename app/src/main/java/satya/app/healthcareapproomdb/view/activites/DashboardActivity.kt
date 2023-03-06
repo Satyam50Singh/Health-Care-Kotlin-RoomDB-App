@@ -14,7 +14,7 @@ import satya.app.healthcareapproomdb.databinding.ActivityDashboardBinding
 import satya.app.healthcareapproomdb.databinding.DrawerHeaderBinding
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
-import satya.app.healthcareapproomdb.utils.Utils.Companion.userLogout
+import satya.app.healthcareapproomdb.utils.Utils.userLogout
 import satya.app.healthcareapproomdb.view.fragments.*
 
 class DashboardActivity : AppCompatActivity() {

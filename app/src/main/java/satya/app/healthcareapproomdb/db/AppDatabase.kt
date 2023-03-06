@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import satya.app.healthcareapproomdb.db.dao.*
 import satya.app.healthcareapproomdb.db.entities.*
-import satya.app.healthcareapproomdb.utils.DATABASE_NAME
+import satya.app.healthcareapproomdb.utils.Constants.DATABASE_NAME
 
 @Database(
     entities = [UserAuthEntity::class, BookAnAppointmentEntity::class, BookAnAmbulanceEntity::class, BookLabTestEntity::class, OrderMedicineEntity::class,

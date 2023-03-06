@@ -10,15 +10,15 @@ import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.HealthArticleAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentHealthArticlesBinding
 import satya.app.healthcareapproomdb.db.Database
+import satya.app.healthcareapproomdb.db.entities.HealthArticleEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
-import satya.app.healthcareapproomdb.models.HealthArticleModel
 import satya.app.healthcareapproomdb.utils.Utils
 
-class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArticleModel> {
+class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArticleEntity> {
 
     private lateinit var binding: FragmentHealthArticlesBinding
     private lateinit var adapter: HealthArticleAdapter
-    private var healthArticleList = ArrayList<HealthArticleModel>()
+    private var healthArticleList = ArrayList<HealthArticleEntity>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +37,13 @@ class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArt
         val db = Database(requireContext(), "healthcare", null, 1)
         val cursor = db.getHealthArticles()
 
-        val healthArticles = ArrayList<HealthArticleModel>()
+        val healthArticles = ArrayList<HealthArticleEntity>()
         while (cursor?.moveToNext() == true) {
-            val articleModel = HealthArticleModel(
+            val articleModel = HealthArticleEntity(
+                cursor.getInt(1),
+                cursor.getString(3),
                 cursor.getString(2),
-                cursor.getString(1),
-                cursor.getString(3)
+                cursor.getString(4)
             )
             healthArticles.add(articleModel)
         }
@@ -59,8 +60,8 @@ class HealthArticlesFragment : Fragment(), CommonItemListClickListener<HealthArt
         binding.rcvHealthArticles.adapter = adapter
     }
 
-    override fun onItemClick(item: HealthArticleModel) {
-        val action = HealthArticlesFragmentDirections.actionNavHealthArticlesFragmentToViewHealthArticleFragment(item, item.title)
+    override fun onItemClick(item: HealthArticleEntity) {
+        val action = HealthArticlesFragmentDirections.actionNavHealthArticlesFragmentToViewHealthArticleFragment(item.title, item)
         findNavController().navigate(action)
     }
 }
