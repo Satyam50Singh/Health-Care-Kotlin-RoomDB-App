@@ -17,4 +17,7 @@ class UserAuthRepository(
     fun userLogin(email: String, password: String): LiveData<UserAuthEntity> =
         userAuthDao.userLogin(email, password)
 
+    fun changePassword(email: String, password: String, newPassword: String): Int =
+        userAuthDao.changePassword(email, password, newPassword)
+
 }

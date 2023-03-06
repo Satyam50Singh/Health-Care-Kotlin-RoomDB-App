@@ -29,4 +29,10 @@ class UserAuthViewModel(application: Application) : AndroidViewModel(application
         repository.checkUserExistence(email)
 
     fun userLogIn(email: String, password: String) = repository.userLogin(email, password)
+
+    fun changePassword(email: String, password: String, newPassword: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.changePassword(email, password, newPassword)
+        }
+    }
 }

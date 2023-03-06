@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.FragmentChangePasswordBinding
 import satya.app.healthcareapproomdb.db.Database
 import satya.app.healthcareapproomdb.utils.Constants
+import satya.app.healthcareapproomdb.utils.Constants.Companion.PREF_EMAIL
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.view.activites.DashboardActivity
 import satya.app.healthcareapproomdb.view.activites.LoginActivity
+import satya.app.healthcareapproomdb.viewmodels.UserAuthViewModel
 
 class ChangePasswordFragment : Fragment() {
     private lateinit var binding: FragmentChangePasswordBinding
+    private val viewModel: UserAuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,31 +60,41 @@ class ChangePasswordFragment : Fragment() {
                     )
                 if (password == enteredPassword) {
                     // change password
-                    val db = Database(requireContext(), Constants.DB_NAME, null, 1)
-                    val changePasswordResult = db.changePassword(enteredPassword, newPassword)
-
-                    if (changePasswordResult) {
-                        // password updated
-                        PreferenceManager.setSharedPreferences(
-                            requireContext(),
-                            Constants.PREF_PASSWORD,
-                            newPassword
+                    try {
+                        viewModel.changePassword(
+                            PreferenceManager.getSharedPreferences(
+                                requireContext(),
+                                PREF_EMAIL
+                            ).toString(), enteredPassword, newPassword
                         )
-                        PreferenceManager.setSharedPreferences(
-                            requireContext(),
-                            Constants.PREF_REMEMBER_ME,
-                            false
-                        )
-                        PreferenceManager.clearAllSharedPreferences(requireContext())
-                        Utils.switchActivity(requireContext(), LoginActivity::class.java)
-                        (context as Activity).overridePendingTransition(
-                            R.anim.enter_from_left,
-                            R.anim.exit_in_right
-                        )
-                        (activity as DashboardActivity).finishAffinity()
-                        Utils.toastMessage(requireContext(), getString(R.string.password_changed_successfully))
-
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
+
+//                    if (changePasswordResult) {
+                    // password updated
+                    PreferenceManager.setSharedPreferences(
+                        requireContext(),
+                        Constants.PREF_PASSWORD,
+                        newPassword
+                    )
+                    PreferenceManager.setSharedPreferences(
+                        requireContext(),
+                        Constants.PREF_REMEMBER_ME,
+                        false
+                    )
+                    PreferenceManager.clearAllSharedPreferences(requireContext())
+                    Utils.switchActivity(requireContext(), LoginActivity::class.java)
+                    (context as Activity).overridePendingTransition(
+                        R.anim.enter_from_left,
+                        R.anim.exit_in_right
+                    )
+                    (activity as DashboardActivity).finishAffinity()
+                    Utils.toastMessage(
+                        requireContext(),
+                        getString(R.string.password_changed_successfully)
+                    )
+//                    }
                 } else {
                     Utils.toastMessage(
                         requireContext(),
