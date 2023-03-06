@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.databinding.ActivityLoginBinding
-import satya.app.healthcareapproomdb.db.Database
 import satya.app.healthcareapproomdb.utils.Constants.PREF_EMAIL
 import satya.app.healthcareapproomdb.utils.Constants.PREF_PASSWORD
 import satya.app.healthcareapproomdb.utils.Constants.PREF_REMEMBER_ME

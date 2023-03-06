@@ -18,7 +18,6 @@ import satya.app.healthcareapproomdb.adapters.OrderMedicineAdapter.Companion.sel
 import satya.app.healthcareapproomdb.databinding.DialogOrderMedicineBinding
 import satya.app.healthcareapproomdb.databinding.FragmentMedicineCartBinding
 import satya.app.healthcareapproomdb.db.AppDatabase
-import satya.app.healthcareapproomdb.db.Database
 import satya.app.healthcareapproomdb.db.entities.OrderMedicineEntity
 import satya.app.healthcareapproomdb.models.MedicineModel
 import satya.app.healthcareapproomdb.utils.Constants
@@ -126,8 +125,6 @@ class MedicineCartFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                val db = Database(requireContext(), Constants.DB_NAME, null, 1)
-
                 val orderMedicineEntity = OrderMedicineEntity(
                     null,
                     PreferenceManager.getSharedPreferencesIntValues(
