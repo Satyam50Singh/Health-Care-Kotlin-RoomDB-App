@@ -26,7 +26,6 @@ class ViewAmbulanceBookingFragment : Fragment(),
 
     private lateinit var binding: FragmentViewAmbulanceBookingBinding
     private lateinit var adapter: ViewAmbulanceBookingAdapter
-    private lateinit var appDatabase: AppDatabase
     private val viewModel: AmbulanceBookingViewModel by viewModels()
 
     override fun onCreateView(
@@ -41,7 +40,6 @@ class ViewAmbulanceBookingFragment : Fragment(),
     }
 
     private fun initUI() {
-        appDatabase = AppDatabase.getDatabase(requireContext())
         var bookedAmbulanceList: List<BookAnAmbulanceEntity>
 
         viewModel.getAllAppointments(

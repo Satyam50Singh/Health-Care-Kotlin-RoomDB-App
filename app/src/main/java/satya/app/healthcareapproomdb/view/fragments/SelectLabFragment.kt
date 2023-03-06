@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,6 +24,7 @@ import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.utils.Utils.getLabsList
+import satya.app.healthcareapproomdb.viewmodels.BookLabTestViewModel
 import java.util.*
 
 class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> {
@@ -34,7 +36,7 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
 
     private lateinit var adapter: LabsListAdapter
     private val args by navArgs<SelectLabFragmentArgs>()
-    private lateinit var appDatabase: AppDatabase
+    private val viewModel: BookLabTestViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -51,7 +53,6 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
     }
 
     private fun initUi() {
-        appDatabase = AppDatabase.getDatabase(requireContext())
 
         binding.svSearchLabs.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -133,9 +134,7 @@ class SelectLabFragment : Fragment(), CommonItemListClickListener<LabListModel> 
                     dialogBinding.etAddress.text.toString() + ", " + dialogBinding.etCity.text.toString() + ", " + dialogBinding.etPincode.text.toString()
                 )
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    appDatabase.labBookingDao().bookLabTest(bookLabTestEntity)
-                }
+                viewModel.bookAnAppointment(bookLabTestEntity)
 
                 Utils.toastMessage(
                     requireContext(),
