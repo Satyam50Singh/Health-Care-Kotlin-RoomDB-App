@@ -7,17 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import satya.app.healthcareapproomdb.R
 import satya.app.healthcareapproomdb.adapters.MedicineCartAdapter
 import satya.app.healthcareapproomdb.adapters.OrderMedicineAdapter.Companion.selectedMedicineList
 import satya.app.healthcareapproomdb.databinding.DialogOrderMedicineBinding
 import satya.app.healthcareapproomdb.databinding.FragmentMedicineCartBinding
-import satya.app.healthcareapproomdb.db.AppDatabase
 import satya.app.healthcareapproomdb.db.entities.OrderMedicineEntity
 import satya.app.healthcareapproomdb.models.MedicineModel
 import satya.app.healthcareapproomdb.utils.Constants
@@ -25,6 +22,7 @@ import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.view.fragments.OrderMedicineFragment.Companion.cartCount
 import satya.app.healthcareapproomdb.view.fragments.OrderMedicineFragment.Companion.setCartCount
+import satya.app.healthcareapproomdb.viewmodels.OrderMedicineViewModel
 
 class MedicineCartFragment : Fragment() {
 
@@ -32,7 +30,7 @@ class MedicineCartFragment : Fragment() {
     private lateinit var cartList: ArrayList<MedicineModel>
     private lateinit var adapter: MedicineCartAdapter
     private lateinit var dialogBinding: DialogOrderMedicineBinding
-    private lateinit var appDatabase: AppDatabase
+    private val viewModel: OrderMedicineViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,7 +43,6 @@ class MedicineCartFragment : Fragment() {
     }
 
     private fun initUI() {
-        appDatabase = AppDatabase.getDatabase(requireContext())
         cartList = selectedMedicineList
 
         if (cartList.size > 0) {
@@ -141,10 +138,7 @@ class MedicineCartFragment : Fragment() {
                     cartCount,
                     Gson().toJson(selectedMedicineList)
                 )
-
-                GlobalScope.launch(Dispatchers.IO) {
-                    appDatabase.orderMedicineDao().bookOrder(orderMedicineEntity)
-                }
+                viewModel.bookAnMedicineOrder(orderMedicineEntity)
 
                 PreferenceManager.clearSharedPreference(
                     requireContext(), Constants.PREF_CART_MEDICINE_IDS_KEYS

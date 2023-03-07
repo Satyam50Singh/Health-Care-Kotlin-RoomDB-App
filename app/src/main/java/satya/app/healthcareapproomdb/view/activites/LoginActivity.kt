@@ -11,6 +11,8 @@ import satya.app.healthcareapproomdb.utils.Constants.PREF_EMAIL
 import satya.app.healthcareapproomdb.utils.Constants.PREF_PASSWORD
 import satya.app.healthcareapproomdb.utils.Constants.PREF_REMEMBER_ME
 import satya.app.healthcareapproomdb.utils.Constants.PREF_SESSION_ID
+import satya.app.healthcareapproomdb.utils.Constants.PREF_USERNAME
+import satya.app.healthcareapproomdb.utils.Constants.PREF_USER_ID
 import satya.app.healthcareapproomdb.utils.Constants.sessionId
 import satya.app.healthcareapproomdb.utils.PreferenceManager
 import satya.app.healthcareapproomdb.utils.PreferenceManager.setSharedPreferences
@@ -72,36 +74,38 @@ class LoginActivity : AppCompatActivity() {
     private fun doLogin(email: String, password: String) {
         binding.progressBar.visibility = View.VISIBLE
         viewModel.checkUserExistence(email).observe(this) { data ->
-                if (data != null) {
-                    viewModel.userLogIn(email, password).observe(this) { result ->
-                            run {
-                                if (result != null) {
-                                    binding.progressBar.visibility = View.GONE
+            if (data != null) {
+                viewModel.userLogIn(email, password).observe(this) { result ->
+                    run {
+                        if (result != null) {
+                            binding.progressBar.visibility = View.GONE
 
-                                    setSharedPreferences(this, PREF_EMAIL, email)
-                                    setSharedPreferences(this, PREF_PASSWORD, password)
-                                    setSharedPreferences(this, PREF_SESSION_ID, sessionId)
-                                    setSharedPreferences(
-                                        this, PREF_REMEMBER_ME, binding.cbRememberMe.isChecked
-                                    )
+                            setSharedPreferences(this, PREF_USER_ID, result.userId ?: 0)
+                            setSharedPreferences(this, PREF_EMAIL, email)
+                            setSharedPreferences(this, PREF_PASSWORD, password)
+                            setSharedPreferences(this, PREF_USERNAME, result.username)
+                            setSharedPreferences(this, PREF_SESSION_ID, sessionId)
+                            setSharedPreferences(
+                                this, PREF_REMEMBER_ME, binding.cbRememberMe.isChecked
+                            )
 
-                                    toastMessage(this, getString(R.string.logged_in_successfully))
-                                    switchActivity(this, DashboardActivity::class.java)
-                                    overridePendingTransition(
-                                        R.anim.enter_from_left, R.anim.exit_in_right
-                                    )
-                                    finishAffinity()
-                                } else {
-                                    binding.progressBar.visibility = View.GONE
-                                    toastMessage(this, getString(R.string.invalid_credentials))
-                                }
-                            }
+                            toastMessage(this, getString(R.string.logged_in_successfully))
+                            switchActivity(this, DashboardActivity::class.java)
+                            overridePendingTransition(
+                                R.anim.enter_from_left, R.anim.exit_in_right
+                            )
+                            finishAffinity()
+                        } else {
+                            binding.progressBar.visibility = View.GONE
+                            toastMessage(this, getString(R.string.invalid_credentials))
                         }
-                } else {
-                    toastMessage(this, getString(R.string.user_does_not_exit))
-                    binding.progressBar.visibility = View.GONE
+                    }
                 }
+            } else {
+                toastMessage(this, getString(R.string.user_does_not_exit))
+                binding.progressBar.visibility = View.GONE
             }
+        }
         Log.e(TAG, "doLogin: email :$email and password : $password")
     }
 
