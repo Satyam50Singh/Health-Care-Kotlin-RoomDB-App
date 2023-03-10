@@ -8,10 +8,10 @@ import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 interface AmbulanceBookingDao {
 
     @Query("SELECT * FROM ambulance_booking WHERE user_id LIKE :userId")
-    fun getAllAmbulanceBookingRecord(userId: Int): LiveData<List<BookAnAmbulanceEntity>>
+    suspend fun getAllAmbulanceBookingRecord(userId: Int): List<BookAnAmbulanceEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun bookAmbulance(bookAnAmbulanceEntity: BookAnAmbulanceEntity) : Long
+    suspend fun bookAmbulance(bookAnAmbulanceEntity: BookAnAmbulanceEntity): Long
 
     @Delete
     suspend fun cancelAmbulanceBooking(bookAnAmbulanceEntity: BookAnAmbulanceEntity)

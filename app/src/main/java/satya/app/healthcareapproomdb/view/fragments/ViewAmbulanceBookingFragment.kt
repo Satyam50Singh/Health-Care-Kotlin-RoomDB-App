@@ -15,10 +15,12 @@ import kotlinx.coroutines.withContext
 import satya.app.healthcareapproomdb.adapters.ViewAmbulanceBookingAdapter
 import satya.app.healthcareapproomdb.databinding.FragmentViewAmbulanceBookingBinding
 import satya.app.healthcareapproomdb.db.AppDatabase
+import satya.app.healthcareapproomdb.db.DataHandler
 import satya.app.healthcareapproomdb.db.entities.BookAnAmbulanceEntity
 import satya.app.healthcareapproomdb.listeners.CommonItemListClickListener
 import satya.app.healthcareapproomdb.utils.Constants
 import satya.app.healthcareapproomdb.utils.PreferenceManager
+import satya.app.healthcareapproomdb.utils.Utils
 import satya.app.healthcareapproomdb.viewmodels.AmbulanceBookingViewModel
 
 class ViewAmbulanceBookingFragment : Fragment(),
@@ -42,29 +44,34 @@ class ViewAmbulanceBookingFragment : Fragment(),
     private fun initUI() {
         var bookedAmbulanceList: List<BookAnAmbulanceEntity>
 
-        viewModel.getAllAppointments(
-            PreferenceManager.getSharedPreferencesIntValues(
-                requireContext(),
-                Constants.PREF_USER_ID
-            )
-        )
-            .observe(viewLifecycleOwner) { data ->
-                if (data.isNotEmpty()) {
-                    bookedAmbulanceList = data
-                    if (bookedAmbulanceList.isNotEmpty()) {
-                        adapter = ViewAmbulanceBookingAdapter(
-                            bookedAmbulanceList,
-                            this
-                        )
-                        binding.rcvViewAmbulanceBooking.adapter = adapter
-                        binding.tvNoAmbulanceBooked.visibility = View.GONE
-                        binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
-                    } else {
-                        binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
-                        binding.rcvViewAmbulanceBooking.visibility = View.GONE
+        viewModel.ambulanceBooking.observe(viewLifecycleOwner) { it ->
+            when (it) {
+                is DataHandler.ERROR -> {
+                    Utils.toastMessage(requireContext(), it.errorMessage.toString())
+                }
+                is DataHandler.LOADING -> {
+                    Log.e("TAG", "initUI: Loading $it")
+                    Utils.toastMessage(requireContext(), "Loading ... please wait!")
+                }
+                is DataHandler.SUCCESS -> {
+                    it.data?.let {
+                        bookedAmbulanceList = it
+                        if (bookedAmbulanceList.isNotEmpty()) {
+                            adapter = ViewAmbulanceBookingAdapter(
+                                bookedAmbulanceList,
+                                this
+                            )
+                            binding.rcvViewAmbulanceBooking.adapter = adapter
+                            binding.tvNoAmbulanceBooked.visibility = View.GONE
+                            binding.rcvViewAmbulanceBooking.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoAmbulanceBooked.visibility = View.VISIBLE
+                            binding.rcvViewAmbulanceBooking.visibility = View.GONE
+                        }
                     }
                 }
             }
+        }
     }
 
     override fun onItemClick(item: BookAnAmbulanceEntity) {
